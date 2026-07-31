@@ -1,0 +1,10 @@
+{
+    "skeleton_golem": {
+        "name": "Skeleton Golem",
+        "encounter_default": "{mob_name} emerged from the thick darkness; the hall was gripped by cold and the sense of inevitable doom. (Appearance: a giant silhouette of fused bones, glowing runes on its chest, a massive shard of a sword in its hands)",
+        "encounter_berserk_rage": "{mob_name} suddenly let out an unnatural, grinding roar. Its bones flared crimson — necromantic fury has taken hold!",
+        "encounter_weak_opponent": "{mob_name} notices your weakness — the runes on its skull flare bright. It raises a heavy arm, intent on finishing off the wounded.",
+        "phase_1_name": "Rage",
+        "phase_1_text": "The runes on {mob_name}'s bones ignite with crimson fire — necromantic RAGE takes hold! It grows stronger!"
+    }
+}

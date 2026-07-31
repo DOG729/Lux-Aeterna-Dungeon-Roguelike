@@ -1,0 +1,297 @@
+{
+    "preview": "preview/default.png",
+    "section" : [
+        {
+            "id":"start_game",
+            "level":[1],
+            "action":"spawn",
+            "chance_spawn_mob":0,
+            "image":"block/start_game_[b].png",
+            "scavenge_scene":"start_room",
+            "chance_scavenge":1,
+            "scavenge_auto_open":true,
+            "scavenge_repeat_open":true,
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":false,
+                "bottom":true
+            }
+        },
+        {
+            "id":"altar_01",
+            "level":[1],
+            "action":"altar",
+            "image":"block/1/block_altar_[b].png",
+            "scavenge_scene":"altar_01",
+            "chance_spawn_mob":0,
+            "chance_scavenge":1,
+            "scavenge_auto_open":true,
+            "scavenge_repeat_open":true,
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":false,
+                "bottom":true
+            }
+        },
+        {
+            "id":"start",
+            "level":[2,"4-6"],
+            "action":"spawn",
+            "chance_spawn_mob":0,
+            "image":"block/1/start_block_[t_b_r].png",
+            "passage": {
+                "left":false,
+                "right":true,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"start_2",
+            "level":["3-4","7-9"],
+            "action":"spawn",
+            "chance_spawn_mob":0,
+            "image":"block/1/start_block_[t_b_r]_2.png",  
+            "passage": {
+                "left":false,
+                "right":true,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"left_deadend",
+            "level":["1-15"],
+            "action":"generation",
+            "chance_spawn_mob":0.4,
+            "image":"block/1/block_[l].png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest"
+            ],
+            "chance_spawn_npc":0.3,
+            "spawn_npc": [
+                "man_bandages"
+            ],
+            "passage": {
+                "left":true,
+                "right":false,
+                "top":false,
+                "bottom":false
+            }
+        },
+        {
+            "id":"right_deadend",
+            "level":["1-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.7,
+            "image":"block/1/block_[r].png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":true,
+                "top":false,
+                "bottom":false
+            }
+        },
+        {
+            "id":"bottom_deadend",
+            "level":["1-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.7,
+            "image":"block/1/block_[b].png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":false,
+                "bottom":true
+            }
+        },
+        {
+            "id":"cross",
+            "level":["1-15"],
+            "action":"generation",
+            "chance_spawn_mob":0.2,
+            "image":"block/1/block_[t_b_l_r].png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "chance_spawn_npc":0.3,
+            "spawn_npc": [
+                "man_bandages"
+            ],
+            "passage": {
+                "left":true,
+                "right":true,
+                "top":true,
+                "bottom":true
+            }
+        },
+        { 
+            "id":"trader_room",
+            "level":[3,5], 
+            "always": true,
+            "count": 1, 
+            "action":"generation",
+            "chance_spawn_mob":0.1,
+            "image":"block/1/block_[t_b_l_r]_trader.png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "chance_spawn_npc":0.9,
+            "spawn_npc": [
+                "man_bandages"
+            ],
+            "passage": {
+                "left":true,
+                "right":true,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"vertical_corridor",
+            "level":["1-15"],
+            "action":"generation",
+            "chance_spawn_mob":0.4,
+            "image":"block/1/block_[t_b].png",
+            "preview": "preview/default_2.png",
+            "chance_spawn_object":0.3,
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"vertical_corridor_gold",
+            "level":["1-15"],
+            "action":"generation",
+            "chance_spawn_mob":0.8,
+            "image":"block/1/block_[t_b]_2.png",
+            "preview": "preview/default_2.png",
+            "chance_spawn_object":0.5,
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"cross_variant",
+            "level":["1-15"],
+            "action":"generation",
+            "chance_spawn_mob":0.2,
+            "image":"block/1/block_[t_b_l_r]_2.png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":true,
+                "right":true,
+                "top":true,
+                "bottom":true
+            }
+        },
+        {
+            "id":"top_deadend",
+            "level":["1-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.3,
+            "image":"block/1/block_[t].png",
+            "preview": "preview/default_2.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":true,
+                "bottom":false
+            }
+        },
+        {
+            "id":"top_deadend_alt",
+            "level":["3-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.3,
+            "image":"block/1/block_[t]_2.png",
+            "preview": "preview/sewage.png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":false,
+                "top":true,
+                "bottom":false
+            }
+        },
+        {
+            "id":"corner_right_bottom",
+            "level":["1-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.3,
+            "image":"block/1/block_[r_b].png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":false,
+                "right":true,
+                "top":false,
+                "bottom":true
+            }
+        },
+        {
+            "id":"corner_left_bottom",
+            "level":["1-15"],
+            "action":"generation", 
+            "chance_spawn_mob":0.5,
+            "image":"block/1/block_[l_b].png",
+            "spawn_object": [
+                "chest_1"
+            ],
+            "passage": {
+                "left":true,
+                "right":false,
+                "top":false,
+                "bottom":true
+            }
+        }
+    ],
+    "transition": [
+        {
+            "id":"t1",
+            "level":[1,2],
+            "image":"block/1/transition_0.png",
+            "passage":"Y"
+        },
+        {
+            "id":"t2",
+            "level":[1,2],
+            "image":"block/1/transition_01.png",
+            "passage":"X"
+        }
+    ]
+}

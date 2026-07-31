@@ -1,0 +1,11 @@
+[
+    {
+        "code": "en",
+        "name": "English",
+        "is_core": true
+    },
+    {
+        "code": "ru",
+        "name": "Russian"
+    }
+]

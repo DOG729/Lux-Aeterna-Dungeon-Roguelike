@@ -1,0 +1,79 @@
+{
+    "id":"man_bandages",
+    "name": "Безымянный торговец",
+    "level": ["3-5", "7-9"],  
+    "promt": "Что знает и может рассказать:\n- Слухи о Lux Aeterna [Lux Aeterna - это секта] ('говорят их инквизиторы в последнее время стали активнее...')\n- Народные байки о Лабирите ('старики говорят что это место старше самой церкви')\n- Наблюдения о местных тварях ('эти — злые, но те что глубже — совсем другие')\n- Философские ремарки без прямых ответов ('интересно что все кто здесь оказывается — искали что-то правильное')\n- Он продает исключительно эликсиры (здоровье, энергию) и снаряжение (не говорит о ценах, а говорит, что продает за золото). \nТон: спокойный, немного усталый, без осуждения. Никогда не врёт напрямую — просто не договаривает.\nНе знает* что такое Лабирит на самом деле, кто такой герой. (Не придумывай того чего нет в промте, просто говори очень обобщенно и загадочно)",
+    "max_count_message": 8,
+    "message_ignores":"Он ничего не говорит",
+    "type":"trader", 
+    "portrait":"portrait/man_bandages.png",
+    "portrait_full":"portrait/man_bandages.png",
+    "pawn": "man_bandages_pawn.png",
+    "icon": "man_bandages_icon.png", 
+    "count_spawn_level":1,
+    "events": {
+        "on_first_encounter": "man_bandages_first_meet",
+        "on_encounter":       "man_bandages_open"
+    },
+    "dream_ai": {"max_change": 10},
+    "relationship": { "default": 0, "mode": "account" },
+    "narrative_text": { 
+        "is_ai": true,
+        "default": "На углу пещеры (Стоит|Сидит) {npc_name}. \n Его внешний вид: Полностью перемотанный человек (Человек ли?) старыми повязками. Не видно не глаз, не рта. С плеча висит коженная сумка с различными предметами.",
+        "variants": [
+            {
+                "if": ["condition:berserk"],
+                "priority": 10,
+                "key": "encounter_berserk_rage",
+                "text": "На углу пещеры (Стоит|Сидит) {npc_name}. \n Его внешний вид: Полностью перемотанный человек (Человек ли?) старыми повязками. Не видно не глаз, не рта. С плеча висит коженная сумка с различными предметами. Он смотрит на тебя с подозрением, как на злодея. ",
+                "is_ai": true
+            },
+            {
+                "if": [["player:hp", "<", ["player:maxHp", "*", 0.5]]], 
+                "priority": 10,
+                "extension": true,
+                "key": "encounter_weak_opponent",
+                "text": "Торговец замечает что ты сильно ранен.", 
+                "is_ai": true
+            } 
+        ]
+    }, 
+    "trader":[
+        {
+            "item": "elixir_healing",
+            "count": "1-3",
+            "chance_appearance": 0.8,
+            "discount": 0
+        },
+        {
+            "item": "elixir_energy",
+            "count": "1-5",
+            "chance_appearance": 1,
+            "discount": 0
+        },
+        {
+            "item": "sword_iron",
+            "count": 1,
+            "chance_appearance": 0.3,
+            "discount": 0
+        },
+        {
+            "item": "sword_wood",
+            "count": 1,
+            "chance_appearance": 0.7,
+            "discount": 0
+        },
+        {
+            "item": "sword_iron",
+            "count": 1,
+            "chance_appearance": 0.2,
+            "discount": 0
+        },
+        {
+            "item": "ring_energy",
+            "count": 1,
+            "chance_appearance": 0.4,
+            "discount": 0.05
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+[
+    {
+        "id":"door1",
+        "name":"Дверь",
+        "image":"image/door.png",
+        "type": "door_area",
+        "level":["1-15"],
+        "action":"door",
+        "function":"spawn_new_level",
+        "spawn":1,
+        "weight":1,
+        "spawn_range":"dead-end",
+        "w":250,
+        "h":250
+    },
+    {
+        "id":"key_door1",
+        "name":"Ключ от двери",
+        "image":"image/key.png",
+        "type":"key_area",
+        "level":["1-15"],
+        "action":"items",
+        "weight":0.5,
+        "use_destroy":true,
+        "items":[
+            { "id":"key_door_inventory", "count":1 }
+        ],
+        "spawn":1,
+        "spawn_range":"dead-end",
+        "w":120,
+        "h":120
+    },
+    {
+        "id":"chest_1",
+        "name":"Сундук",
+        "image":"image/chest.png",
+        "level":["1-15"],
+        "action":"chest",
+        "weight":0.5,
+        "use_destroy":true,
+        "items":[
+            { "id":"gold",           "count":[2,11],  "chance":1    },
+            { "id":"elixir_healing", "count":1,       "chance":0.15 },
+            { "id":"elixir_energy",  "count":[1,2],   "chance":0.2  },
+            { "id":"sword_wood",     "count":1,       "chance":0.2  },
+            { "id":"shield_wood",    "count":1,       "chance":0.06 },
+            { "id":"amulet_hp",      "count":1,       "chance":0.06 },
+            { "id":"ring_energy",    "count":1,       "chance":0.06 }
+        ],
+        "spawn":"1-3",
+        "w":250,
+        "h":250
+    }
+]

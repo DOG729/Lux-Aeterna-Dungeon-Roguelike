@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lux Aeterna Dungeon</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/animations-falling-particles.css">
+  <link rel="stylesheet" href="css/preloader.css">
+  <link rel="stylesheet" href="css/devpanel.css">
+</head>
+<body>
+
+<div id="game-preloader" class="game-preloader" aria-busy="true" aria-label="Загрузка игры">
+  <div class="game-preloader__bg" aria-hidden="true"></div>
+  <div class="game-preloader__vignette" aria-hidden="true"></div>
+  <div class="game-preloader__progress" aria-hidden="true">
+    <div class="game-preloader__frame_progress">
+      <img  src="/assets/image/ui/preloader_progress.png"  alt="">
+    </div>
+    <img class="game-preloader__frame" src="/assets/image/ui/preloader_progress_bar.png"  alt="">
+
+  </div>
+</div>
+
+<!-- AI availability check overlay (shown before entering the game) -->
+<div id="ai-check-overlay" class="ai-check-overlay hidden" aria-busy="true" aria-label="Проверка AI-системы">
+  <div class="ai-check-spinner"></div>
+  <div class="ai-check-overlay-text"><img class="icon" data-icon="hourglass" alt=""> <span data-i18n="html.ai_check_running">Проверка AI-системы…</span></div>
+</div>
+
+<!-- ══════════════════════════════ MENU ══════════════════════════════════ -->
+<div id="screen-menu" class="screen">
+  <div id="menu-bg"></div>
+  <!-- Декор: before под камнями (z ниже), after над камнями — картинки из assets/image/ui/ -->
+  <div id="menu-ui-before" class="menu-ui-top" aria-hidden="true">
+    <img src="/assets/image/ui/top_menu_before.png" alt="" decoding="async" width="3000" height="430">
+  </div>
+  <div id="menu-falling-layer" aria-hidden="true"></div>
+  <div id="menu-ui-after" class="menu-ui-top" aria-hidden="true">
+    <img src="/assets/image/ui/top_menu_after.png" alt="" decoding="async" width="3000" height="430">
+  </div>
+  <div id="menu-box">
+    <img id="menu-logo" src="/assets/image/logo_animated.webp" alt="Lux Aeterna Dungeon">
+    <div id="menu-sub" data-sound-volume="0.4" data-sound-hover="ui/papyrus.mp3">  
+      <p if="berserk" data-i18n="html.menu_sub_berserk">Убей! Убей! Убей!</p>
+      <p else data-i18n="html.menu_sub">Найди ключ. Открой дверь. Выживи.</p>
+    </div>
+    
+    <div id="menu-btns">
+      <button class="menu-btn hidden" id="btn-continue"
+              data-i18n="html.btn_continue"
+              data-sound-volume="0.7"
+              data-sound-hover="ui/button_hover_menu.mp3"
+              data-sound-click="ui/button_click.mp3">Продолжить</button>
+      <button class="menu-btn" id="btn-new-game"
+              data-i18n="html.btn_new_game"
+              data-sound-volume="0.7"
+              data-sound-hover="ui/button_hover_menu.mp3"
+              data-sound-click="ui/button_click.mp3">Новая игра</button>
+      <button class="menu-btn" id="btn-load-game"
+              data-i18n="html.btn_load_game"
+              data-sound-volume="0.7"
+              data-sound-hover="ui/button_hover_menu.mp3"
+              data-sound-click="ui/soft_interface_000001.mp3">Загрузить игру</button>
+      <button class="menu-btn" id="btn-menu-settings"
+              data-i18n="html.btn_settings"
+              data-sound-volume="0.7"
+              data-sound-click="ui/soft_interface_000001.mp3"
+              data-sound-hover="ui/button_hover_menu.mp3"
+              >Настройки</button>
+      <button class="menu-btn hidden" id="btn-quit-game"
+              data-i18n="html.btn_quit_game"
+              data-sound-volume="0.7"
+              data-sound-hover="ui/button_hover_menu.mp3"
+              data-sound-click="ui/button_click.mp3">Выйти из игры</button>
+    </div>
+    <div class="author text-center">
+        By Dog729 <span id="game-version" class="game-version"></span>
+    </div>
+    <div class="menu-license">
+        Engine: <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a> &nbsp;·&nbsp; Content: © Dog729, non-commercial
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ DUNGEON ═══════════════════════════════════ -->
+<div id="screen-dungeon" class="screen">
+
+  <!-- Top bar -->
+  <div id="dng-topbar">
+    <div id="dng-stats">
+      <span class="stat-chip"><img class="stat-icon" src="/assets/image/icon_hp.png" alt="HP"> <span id="d-hp">100</span>/<span id="d-maxhp">100</span></span>
+      <span class="stat-chip"><img class="stat-icon" src="/assets/image/icon_eng.png" alt="EN"> <span id="d-en">100</span>/<span id="d-maxen">100</span></span>
+      <span class="stat-chip"><img class="stat-icon" src="/assets/image/icon_exp.png" alt="XP"> <span id="d-xp">0</span> XP</span>
+      <span class="stat-chip"><img class="stat-icon" src="/assets/image/money.png" alt="Gold"> <span id="d-gold">0</span></span>
+    </div>
+    <div id="dng-level-floor">
+      <span class="stat-chip level-chip"><span data-i18n="html.lv_prefix">Ур.</span><span id="d-level">1</span><span data-i18n="html.floor_prefix"> · Этаж </span><span id="d-floor">1</span></span>
+    </div> 
+    <div id="dng-actions">
+      <button class="icon-btn" id="btn-skills"    data-i18n-title="html.tip_skills"    title="Навыки">   <img src="/assets/image/skull_coin.png"     alt="Навыки"  data-sound-volume="0.4" data-sound-hover="ui/button_hover_2.mp3" data-sound-click="ui/soft_interface_1779739196353.mp3"></button>
+      <button class="icon-btn" id="btn-inventory" data-i18n-title="html.tip_inventory" title="Инвентарь"><img src="/assets/image/icon_inventory2.png" alt="Инвентарь" data-sound-volume="0.4" data-sound-hover="ui/button_hover_2.mp3" data-sound-click="ui/soft_interface_1779739196353.mp3"></button>
+      <button class="icon-btn" id="btn-journal"   data-i18n-title="html.tip_journal"   title="Журнал">   <img src="/assets/image/icon_menu.png"       alt="Журнал" data-sound-volume="0.4" data-sound-hover="ui/button_hover_2.mp3" data-sound-click="ui/soft_interface_1779739196353.mp3"></button>
+      <button class="icon-btn" id="btn-save"      data-i18n-title="html.tip_save"      title="Сохранить"><img src="/assets/image/icon_save2.png"      alt="Сохранить" data-sound-volume="0.8" data-sound-hover="ui/button_hover_2.mp3" data-sound-click="ui/button_click.mp3"></button>
+      <button class="icon-btn" id="btn-to-menu"   data-i18n-title="html.tip_exit"      title="Выход">    <img src="/assets/image/icon_exit.png"       alt="Выход" data-sound-volume="0.4" data-sound-hover="ui/button_hover_2.mp3" data-sound-click="ui/button_click.mp3"></button>
+    </div>
+  </div>
+
+  <!-- Dungeon map (tile-based) -->
+  <div id="dng-map-wrap">
+    <div id="dng-map"></div>
+  </div>
+
+  <!-- Scavenge panoramic scene (replaces map area) -->
+  <div id="modal-scavenge" class="hidden">
+    <div id="scavenge-blink-overlay">
+    <div id="scavenge-lid-top"></div>
+    <div id="scavenge-lid-bottom"></div>
+  </div>
+  <div id="scavenge-tasks" class="hidden"></div>
+  <div id="scavenge-help" class="hidden"></div>
+  <div id="scavenge-viewport">
+      <div id="scavenge-scene"></div>
+    </div>
+    <div id="scavenge-hint"  class="hidden"></div>
+    <div id="scavenge-popup" class="hidden"></div>
+    <button id="btn-scavenge-exit" class="hidden" type="button" title="Выйти из осмотра" aria-label="Выйти из осмотра"></button>
+  </div>
+
+  <!-- Room action panel -->
+  <div id="room-actions" class="hidden"></div>
+
+  <!-- Inventory strip -->
+  <div id="inventory-bar">
+    <span class="inv-label" data-i18n="html.inv_label">Инвентарь:</span>
+    <div id="inventory-items"></div>
+    <div id="key-status" class="hidden"><img class="icon" data-icon="key" alt=""> <span data-i18n="html.key_found">Ключ найден!</span></div>
+  </div>
+
+  <!-- Notification toast -->
+  <div id="toast" class="hidden"></div>
+</div>
+
+<!-- ══════════════════════════ COMBAT ════════════════════════════════════ -->
+<div id="screen-combat" class="screen">
+
+  <!-- Combat header -->
+  <div id="cbt-header">
+    <div class="cbt-fighter" id="cbt-player-side">
+      <div class="fighter-name player-color" data-i18n="html.player_label">ИГРОК</div>
+      <div class="fighter-bars">
+        <div class="bar-row"><img class="stat-icon" src="/assets/image/icon_hp.png" alt="HP"> <span id="c-php">100</span>
+          <div class="rpg-bar-wrap">
+            <img class="rpg-bar-bg" src="/assets/image/progress_bar.png" alt="">
+            <div class="rpg-bar-fill hp-fill" id="c-php-bar"></div>
+          </div>
+        </div>
+        <div class="bar-row"><img class="stat-icon" src="/assets/image/icon_eng.png" alt="EN"> <span id="c-pen">100</span>
+          <div class="rpg-bar-wrap">
+            <img class="rpg-bar-bg" src="/assets/image/progress_bar.png" alt="">
+            <div class="rpg-bar-fill en-fill" id="c-pen-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cbt-vs">VS</div>
+    <div class="cbt-fighter" id="cbt-mob-side">
+      <div class="fighter-name mob-color" id="c-mob-name" data-i18n="combat.mob_placeholder">Враг</div>
+      <div class="fighter-bars">
+        <div class="bar-row"><img class="stat-icon" src="/assets/image/icon_hp.png" alt="HP"> <span id="c-mhp">100</span>
+          <div class="rpg-bar-wrap">
+            <img class="rpg-bar-bg" src="/assets/image/progress_bar.png" alt="">
+            <div class="rpg-bar-fill hp-fill" id="c-mhp-bar"></div>
+          </div>
+        </div>
+        <div class="bar-row"><img class="stat-icon" src="/assets/image/icon_eng.png" alt="EN"> <span id="c-men">100</span>
+          <div class="rpg-bar-wrap">
+            <img class="rpg-bar-bg" src="/assets/image/progress_bar.png" alt="">
+            <div class="rpg-bar-fill en-fill" id="c-men-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fighters -->
+  <div id="cbt-arena">
+    <div id="cbt-player-wrap">
+      <img id="cbt-player-img" src="" alt="Player">
+      <img id="cbt-player-effect" class="sprite-effect" src="" alt="">
+    </div>
+    <div id="cbt-mob-wrap">
+      <img id="cbt-mob-img" src="" alt="Mob">
+      <img id="cbt-mob-effect" class="sprite-effect" src="" alt="">
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div id="cbt-chat-area">
+    <div id="cbt-log"></div>
+  </div>
+
+  <!-- Input row -->
+  <div id="cbt-input-row">
+    <input id="cbt-msg" type="text" maxlength="255"
+           data-i18n-placeholder="html.cbt_placeholder"
+           placeholder="Сказать мобу (до 255 символов, необязательно)…">
+    <span id="cbt-msg-count">0/255</span>
+  </div>
+
+  <!-- Usable items (elixirs etc) -->
+  <div id="cbt-items"></div>
+
+  <!-- Action buttons (rendered dynamically by game.js, including player-only actions) -->
+  <div id="cbt-actions"></div>
+
+</div>
+
+<!-- ══════════════════════════ MODALS ════════════════════════════════════ -->
+
+<!-- Save list -->
+<div id="modal-saves" class="modal-bg hidden">
+  <div class="modal">
+    <h2 data-i18n="html.saves_title">Загрузить сохранение</h2>
+    <div id="saves-list"></div>
+    <div class="modal-footer">
+      <button id="btn-saves-close" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.btn_cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings -->
+<div id="modal-settings" class="modal-bg hidden">
+  <div class="modal settings-modal">
+    <h2><img src="/assets/image/settings.png" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;margin-right:6px"><span data-i18n="html.settings_title">Настройки</span></h2>
+
+    <!-- Main tabs -->
+    <div class="stabs">
+      <button class="stab active" data-stab="lang"     data-i18n="html.tab_lang"     data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3">Язык</button>
+      <button class="stab hidden" data-stab="graphics" data-i18n="html.tab_graphics" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3">Графика</button>
+      <button class="stab"        data-stab="sound"    data-i18n="html.tab_sound"    data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3">Звук</button>
+      <button class="stab"        data-stab="provider" data-i18n="html.tab_provider" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3">Провайдер</button>
+      <button class="stab"        data-stab="account"  data-i18n="html.tab_account"  data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3">Аккаунт</button>
+    </div>
+
+    <!-- Language pane -->
+    <div id="stab-lang" class="stab-pane"> 
+      <div
+      data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3"
+      data-sound-click="ui/button_click.mp3"
+      id="lang-buttons" class="lang-grid"></div>
+    </div>
+
+    <!-- Sound pane -->
+    <div id="stab-sound" class="stab-pane hidden">
+      <div class="vol-section-title" data-i18n="html.vol_music">Музыка</div>
+      <div class="vol-row">
+        <label data-i18n="html.vol_bg">Фон</label>
+        <input id="inp-bg-vol" type="range" min="0" max="1" step="0.01" value="0.25">
+        <span class="vol-val" id="lbl-bg-vol">25%</span>
+        <button class="vol-ctrl-btn" id="btn-bg-play"  title="Воспроизвести фон"><img src="/assets/image/play.png"  alt="▶"></button>
+        <button class="vol-ctrl-btn" id="btn-bg-stop"  title="Остановить фон">   <img src="/assets/image/stop.png"  alt="⏹"></button>
+      </div>
+      <div class="vol-row">
+        <label data-i18n="html.vol_battle">Бой</label>
+        <input id="inp-bt-vol" type="range" min="0" max="1" step="0.01" value="0.25">
+        <span class="vol-val" id="lbl-bt-vol">25%</span>
+        <button class="vol-ctrl-btn" id="btn-bt-play"  title="Воспроизвести бой"><img src="/assets/image/play.png"  alt="▶"></button>
+        <button class="vol-ctrl-btn" id="btn-bt-stop"  title="Остановить бой">   <img src="/assets/image/stop.png"  alt="⏹"></button>
+      </div>
+      <div class="vol-section-title" data-i18n="html.vol_sfx">Звуковые эффекты</div>
+      <div class="vol-row">
+        <label data-i18n="html.vol_sfx_label">Громкость</label>
+        <input id="inp-sfx-vol" type="range" min="0" max="1" step="0.01" value="0.2">
+        <span class="vol-val" id="lbl-sfx-vol">20%</span>
+      </div>
+    </div>
+
+    <!-- Provider pane -->
+    <div id="stab-provider" class="stab-pane hidden">
+      <div class="provider-tabs">
+        <button class="provider-tab active" id="ptab-ollama"     data-provider="ollama">🦙 Ollama</button>
+        <button class="provider-tab"        id="ptab-openrouter" data-provider="openrouter">🌐 OpenRouter</button>
+      </div>
+      <div id="settings-ollama">
+        <div class="ollama-mode-group">
+          <button class="ollama-mode-btn active" data-omode="local">🖥️ Local</button>
+          <button class="ollama-mode-btn"        data-omode="cloud">☁️ Cloud</button>
+        </div>
+        <label>Модель<input id="inp-model" type="text" placeholder="gpt-oss:20b-cloud"></label>
+        <div id="ollama-local-fields">
+          <label>URL<input id="inp-url" type="text" placeholder="http://127.0.0.1:11434"></label>
+        </div>
+        <div id="ollama-cloud-fields" class="hidden">
+          <label>API Key<input id="inp-ollama-cloud-key" type="password" placeholder="ollama_..."></label>
+        </div>
+        <label class="checkbox-label"><input id="inp-ollama-json" type="checkbox"> JSON mode</label>
+      </div>
+      <div id="settings-openrouter" class="hidden">
+        <label>API Key<input id="inp-or-key" type="password" placeholder="sk-or-v1-..."></label>
+        <label>Модель<input id="inp-or-model" type="text" placeholder="openai/gpt-4o-mini"></label>
+        <label class="checkbox-label"><input id="inp-or-json" type="checkbox"> JSON mode</label>
+      </div>
+      <div class="settings-divider"></div>
+      <label class="checkbox-label"><input id="inp-cache-mode" type="checkbox"> <span data-i18n="html.cache_mode">⚡ Prompt caching</span></label>
+      <div class="settings-divider"></div>
+      <button id="btn-ai-test" class="settings-action-btn" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.btn_ai_test">🧪 Тестировать модель</button>
+    </div>
+
+    <!-- Graphics pane (Electron only) -->
+    <div id="stab-graphics" class="stab-pane hidden">
+      <div class="gfx-section-label" data-i18n="html.gfx_mode">Режим отображения</div>
+      <div class="gfx-mode-group">
+        <button class="gfx-mode-btn" data-mode="fullscreen">🖥️ <span data-i18n="html.gfx_fullscreen">Полный экран</span></button>
+        <button class="gfx-mode-btn" data-mode="windowed">🪟 <span data-i18n="html.gfx_windowed">Оконный</span></button> 
+      </div>
+      <div class="gfx-section-label" id="gfx-res-label" data-i18n="html.gfx_resolution">Разрешение</div>
+      <select id="inp-resolution" class="gfx-select"></select>
+    </div>
+
+    <!-- Account pane -->
+    <div id="stab-account" class="stab-pane hidden">
+      <div id="account-stats" class="account-stats"></div>
+      <div class="settings-divider"></div>
+      <button id="btn-credits" class="settings-action-btn" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.btn_credits">Титры</button>
+      <button id="btn-reset-account" class="danger-btn" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.reset_game_btn">⚠️ Сбросить игру</button>
+    </div>
+
+    <div class="modal-footer">
+      <button id="btn-settings-save" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3"  data-i18n="html.btn_save_settings">Сохранить</button>
+      <button id="btn-settings-close" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.btn_cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI model test -->
+<div id="modal-ai-test" class="modal-bg hidden">
+  <div class="modal ai-test-modal">
+    <h2 data-i18n="html.ai_test_title">🧪 Тест модели</h2>
+
+    <div class="ai-test-progress-track">
+      <div id="ai-test-progress-fill" class="ai-test-progress-fill"></div>
+    </div>
+
+    <div id="ai-test-steps" class="ai-test-steps"></div>
+
+    <div id="ai-test-score" class="ai-test-score hidden">
+      <div id="ai-test-score-value" class="ai-test-score-value"></div>
+      <div id="ai-test-score-title" class="ai-test-score-title"></div>
+      <div id="ai-test-score-desc"  class="ai-test-score-desc"></div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="btn-ai-test-close" data-sound-volume="0.6" data-sound-hover="ui/soft_RPG_interface.mp3" data-sound-click="ui/soft_interface_000001.mp3" data-i18n="html.btn_close">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Game over -->
+<div id="modal-gameover" class="modal-bg hidden">
+  <div class="modal gameover-modal">
+    <div id="go-icon"><img id="go-icon-img" class="go-icon-img" src="" alt=""></div>
+    <div id="go-title"></div>
+    <div id="go-sub"></div>
+    <div class="modal-footer">
+      <button id="btn-go-continue" class="hidden" data-i18n="html.btn_go_continue">Продолжить</button>
+      <button id="btn-go-load"     class="hidden" data-i18n="html.btn_go_load">Загрузить игру</button>
+      <button id="btn-go-new"      class="hidden" data-i18n="html.btn_go_new">Новая игра</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inventory (two windows) -->
+<div id="modal-inventory" class="inv-overlay hidden">
+
+  <!-- Window 1: Character — обычный modal -->
+  <div class="inv-char-panel modal" id="inv-win-char">
+    <h2>
+      <img class="btn-icon-lg" src="/assets/image/icon_inventory.png" alt="Инвентарь">
+      <span data-i18n="html.inv_title">Персонаж</span>
+    </h2>
+    <div class="inv-tabs">
+      <button class="inv-tab active" data-tab="equip" data-i18n="html.inv_tab_equip">Экипировка</button>
+      <button class="inv-tab inv-tab-mobile-bag" data-tab="bag" data-i18n="html.inv_tab_bag">Рюкзак</button>
+      <button class="inv-tab"        data-tab="stats" data-i18n="html.inv_tab_stats">Статистика</button>
+    </div>
+    <div class="inv-tab-panel" id="inv-panel-equip">
+      <div id="inv-slots"></div>
+    </div>
+    <div class="inv-tab-panel hidden" id="inv-panel-stats">
+      <div id="inv-player-stats"></div>
+    </div>
+    <!-- 3-й таб: кожаный рюкзак внутри модального окна -->
+    <div class="inv-tab-panel hidden inv-tab-panel-bag" id="inv-panel-bag">
+      <div class="inv-tab-bag-bg"></div>
+      <div class="inv-tab-bag-frame"></div>
+      <div class="inv-tab-bag-inner">
+        <!-- #inv-items переезжает сюда на мобилке -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="btn-inv-close" data-i18n="html.btn_close">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Window 2: Backpack — кожаный рюкзак (десктоп) -->
+  <div class="inv-bag-panel" id="inv-win-bag">
+    <div class="inv-bag-bg"></div>
+    <div class="inv-bag-frame"></div>
+    <div class="inv-bag-inner">
+      <div class="inv-win-title">Рюкзак</div>
+      <div id="inv-items"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Level up -->
+<div id="modal-levelup" class="modal-bg hidden">
+  <div class="modal">
+    <div id="lu-icon"><div id="go-icon"><img id="go-icon-img" class="go-icon-img" src="/assets/image/door.png" alt="Дверь!"></div></div>
+    <h2 id="lu-title" data-i18n="html.levelup_title">Переход на уровень!</h2>
+    <p id="lu-sub"></p>
+    <div class="modal-footer">
+      <button id="btn-lu-ok" data-i18n="html.btn_forward">Вперёд!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Journal -->
+<div id="modal-journal" class="modal-bg hidden">
+  <div class="modal journal-modal">
+    <h2 data-i18n="html.journal_title">Журнал</h2> 
+    <div id="journal-list"></div>
+    <div class="modal-footer">
+      <button id="btn-journal-close" data-i18n="html.btn_close">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Skills -->
+<div id="modal-skills" class="modal-bg hidden">
+  <div class="modal skill-modal">
+    <div class="skill-modal-header">
+      <h2 data-i18n="html.skills_title">Дерево навыков</h2>
+      <div class="skill-sp-badge"><span data-i18n="html.sp_label">Очков:</span> <span id="sk-points">0</span></div>
+    </div>
+    <div id="skill-tree-wrap">
+      <div id="skill-tree-canvas">
+        <img id="skill-tree-bg" src="/assets/image/background/bg_skills_modal.png" draggable="false">
+        <svg id="skill-tree-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div id="skill-tree-nodes"></div>
+      </div>
+    </div>
+    <div id="skill-tooltip" class="hidden"></div>
+    <div class="modal-footer">
+      <button id="btn-skills-close" data-i18n="html.btn_close">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Credits fullscreen -->
+<div id="modal-credits" class="hidden">
+  <button id="btn-credits-close" class="credits-close-btn" title="Закрыть">
+    <img src="assets/image/no_100x100.png" alt="×">
+  </button>
+  <div id="credits-viewport">
+    <div id="credits-scroll"></div>
+  </div>
+</div>
+
+<script type="module" src="js/animations/animations-entry.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

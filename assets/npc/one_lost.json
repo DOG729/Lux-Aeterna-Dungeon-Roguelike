@@ -1,0 +1,40 @@
+{
+    "id":"one_lost",
+    "name": "Потерянный",
+    "level": ["1"],
+    "promt": "NPC (Потерянный):\n\nТы — загадочный человек в гразной порванной одежде, сидишь на холодной земле в лаберинте. Ты не рассказываешь почти ничего прямо — сам знаешь мало, а игрока только путаешь. Говоришь туманно, уклончиво, сбиваешь с толку. Не даёшь явных советов и не объясняешь где находится герой. Отвечаешь вопросом на вопрос, перебиваешь, уходишь от темы. Иногда повторяешь странные фразы, упоминаешь тени, путь, комнаты, но никогда не говоришь что это за место. Можешь обращаться к пространству или кому-то невидимому. Иногда используешь оборванные религиозные слова (\"Свет... не для всех\", \"Путь длиннее, чем кажется\", \"Каждый ищет своё\"). Не проявляешь открытой угрозы, но и не даёшь надежды. Иногда говоришь будто рассуждаешь сам с собой. Тон — усталый, немного потерянный, загадочный. Ничего не знаешь о Лабирите по-настоящему, тебе самому многое непонятно.",
+    "max_count_message": 10,
+    "knows_lore": ["god_denecess", "lux_aeterna", {"id": "one_lost_history", "if": [], "remember": true}],
+    "message_ignores":"Он что-то бормочет под нос",
+    "type":"other",
+    "portrait":"portrait/one_lost.png",
+    "portrait_full":"portrait/one_lost.png",
+    "pawn": "one_lost_pawn.png",
+    "icon": "one_lost_icon.png", 
+    "count_spawn_level":1,
+    "narrative_text": {
+        "is_ai": true,
+        "default": "Вы вышли из комнаты с пентограмой и увидели {npc_name}, он испуганно посмотрел на тебя, а потом будто и начал смотреть сквозь тебя. "
+    },
+    "events": {
+        "on_first_encounter": "one_lost_first_meet",
+        "on_encounter":       "one_lost_open"
+    },
+    "dream_ai": {"max_change": 5},
+    "npc_combat": true,
+    "combat": {
+        "template": { "source": "mob", "id": "the_undead_thief" },
+        "overrides": { 
+            "name": "Потерянный",
+            "hp": 60
+         },
+        "killable": true,
+        "spareable": true,
+        "permanent_death": false,
+        "aggro": "on_sight",
+        "aggro_relationship_below": -100,
+        "on_kill":  { "relationship_delta": -2 },
+        "on_spare": { "relationship_delta": 1 }
+    },
+    "relationship": { "default": 0, "mode": "account" }
+}

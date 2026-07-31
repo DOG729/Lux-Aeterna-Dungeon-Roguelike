@@ -1,0 +1,35 @@
+/* Падающие частицы меню (#menu-falling-layer + .falling-particle) */
+
+#menu-falling-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@keyframes falling-particle-fall {
+  0% {
+    transform: translate3d(calc(var(--xvw, 50) * 1vw), -10vh, 0) rotate(0deg) scale(var(--scale0, 1));
+    opacity: var(--op0, 0.7);
+    filter: blur(var(--blur0, 0px)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  }
+  100% {
+    transform: translate3d(calc((var(--xvw, 50) + var(--driftvw, 0)) * 1vw), 110vh, 0) rotate(var(--rot-end, 0deg)) scale(var(--scale1, 1));
+    opacity: var(--op1, 0.12);
+    filter: blur(var(--blur1, 0px)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  }
+}
+
+.falling-particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--w, 24px);
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  animation-name: falling-particle-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+} 

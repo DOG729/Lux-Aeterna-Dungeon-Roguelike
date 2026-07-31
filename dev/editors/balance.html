@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Balance Calculator</title>
+<link rel="stylesheet" href="/dev_css/shared.css">
+<style>
+body { user-select: none; }
+
+#toolbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 6px 14px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+#toolbar h1 { font-size: 13px; color: var(--accent); letter-spacing: 1px; white-space: nowrap; }
+.tb-sep  { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+.tb-lbl  { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.tb-lbl input[type=range] { width: 100px; accent-color: var(--accent); }
+.tb-lbl input[type=number] { width: 44px; }
+#sp-counter { font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); background: var(--bg3); }
+#sp-counter.over { border-color: var(--accent); color: var(--accent); }
+
+#main { display: flex; flex: 1; overflow: hidden; }
+
+.resize-handle {
+  width: 4px; flex-shrink: 0; background: var(--border); cursor: col-resize;
+  transition: background .15s;
+  position: relative; z-index: 10;
+}
+.resize-handle:hover, .resize-handle.dragging { background: var(--accent); }
+
+/* ── Left: Skills ── */
+#panel-skills { width: 272px; min-width: 160px; max-width: 520px; flex-shrink: 0; border-right: none; display: flex; flex-direction: column; overflow: hidden; background: var(--bg2); }
+.branch-tabs { display: flex; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+.branch-tab  { flex: 1; padding: 7px 2px; background: none; border: none; color: #555; cursor: pointer; font-family: monospace; font-size: 9px; letter-spacing: .5px; text-transform: uppercase; border-bottom: 2px solid transparent; }
+.branch-tab:hover { color: #aaa; }
+.branch-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+#skill-list { flex: 1; overflow-y: auto; }
+
+.skill-row { display: flex; align-items: flex-start; gap: 7px; padding: 7px 8px; border-bottom: 1px solid #111; cursor: pointer; }
+.skill-row:hover { background: var(--bg3); }
+.skill-row.learned { background: #0f1a0d; }
+.skill-row.unavail { opacity: 0.4; cursor: default; }
+.skill-row.notable .skill-name { color: #c9aa6a; }
+.skill-cb { margin-top: 2px; flex-shrink: 0; accent-color: var(--accent); width: 13px; height: 13px; }
+.skill-info { flex: 1; min-width: 0; }
+.skill-name { font-size: 11px; color: var(--text); }
+.skill-desc { font-size: 10px; color: var(--muted); margin-top: 1px; }
+.skill-prereq { font-size: 9px; color: #555; margin-top: 2px; }
+.skill-sp { font-size: 10px; color: #666; margin-left: auto; flex-shrink: 0; white-space: nowrap; padding-top: 2px; }
+
+/* ── Center: Stats ── */
+#panel-stats { flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+.stat-card { background: var(--bg2); border: 1px solid var(--border); padding: 10px 14px; }
+.stat-card-title { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+.stat-card-title span { color: var(--accent); }
+.stat-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; margin-bottom: 3px; }
+.stat-row .lbl { color: var(--muted); }
+.stat-row .val { color: var(--text); font-weight: bold; }
+.stat-row .val.hi { color: #3dff7a; }
+.stat-row .val.dim { color: #555; }
+
+.bar-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.bar { flex: 1; height: 8px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 2px; transition: width .15s; }
+.bar-fill.hp     { background: #3dff7a; }
+.bar-fill.energy { background: #4a9eff; }
+.bar-num { font-size: 18px; font-weight: bold; min-width: 44px; text-align: right; }
+.bar-num.hp     { color: #3dff7a; }
+.bar-num.energy { color: #4a9eff; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.avg-dmg { font-size: 11px; color: #c9aa6a; margin-top: 4px; }
+
+/* ── Equipment ── */
+.equip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.equip-row { display: flex; flex-direction: column; gap: 2px; }
+.equip-row label { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: .06em; }
+.equip-row select { width: 100%; font-size: 11px; }
+
+/* ── Right: XP ── */
+#panel-xp { width: 266px; min-width: 200px; max-width: 520px; flex-shrink: 0; border-left: none; display: flex; flex-direction: column; background: var(--bg2); overflow: hidden; }
+.xp-top { padding: 10px 10px 0; flex-shrink: 0; }
+.xp-top h3 { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+.xp-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+.xp-inputs label { font-size: 9px; color: #555; text-transform: uppercase; display: flex; flex-direction: column; gap: 3px; }
+.xp-inputs input { width: 100%; }
+#xp-needed { font-size: 11px; color: var(--muted); margin-bottom: 8px; padding: 5px 8px; background: var(--bg3); border: 1px solid var(--border); }
+#xp-needed span { color: var(--text); font-weight: bold; }
+#mob-table { flex: 1; overflow-y: auto; }
+.mob-tr { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-bottom: 1px solid #111; font-size: 11px; }
+.mob-tr:hover { background: var(--bg3); }
+.mob-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.mob-xp   { font-size: 10px; color: #555; white-space: nowrap; min-width: 70px; text-align: right; }
+.mob-kills { font-weight: bold; color: var(--accent); min-width: 70px; text-align: right; white-space: nowrap; font-size: 10px; }
+.mob-kills.easy   { color: #3dff7a; }
+.mob-kills.medium { color: #f0a500; }
+.mob-kills.hard   { color: var(--accent); }
+.xp-tab-hd { display: flex; align-items: center; gap: 4px; padding: 4px 10px; background: var(--bg3); border-bottom: 1px solid var(--border); font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0; }
+.xp-tab-hd .mob-name { color: #555; }
+.xp-tab-hd .mob-kills { color: #555; font-weight: normal; }
+
+#level-progress { padding: 0 10px 8px; flex-shrink: 0; }
+.lvl-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+.lvl-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.lvl-bar-fill { height: 100%; background: #c9aa6a; border-radius: 2px; }
+
+/* ── Combat Sim ── */
+.sim-controls { display: flex; gap: 6px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 10px; }
+.sim-field { display: flex; flex-direction: column; gap: 2px; }
+.sim-field input, .sim-field select { font-size: 11px; }
+.sim-lbl { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing:.05em; }
+#sim-enemy-id { min-width: 100px; }
+
+.sim-summary { display: flex; align-items: center; gap: 12px; margin: 8px 0 6px; }
+.sim-big-pct { font-size: 36px; font-weight: bold; line-height: 1; }
+.sim-big-pct.win  { color: #3dff7a; }
+.sim-big-pct.mid  { color: #f0a500; }
+.sim-big-pct.lose { color: var(--accent); }
+.sim-win-sub { font-size: 10px; color: #555; }
+.sim-win-sub span { color: var(--muted); }
+
+.sim-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 8px; }
+.sim-stat { background: var(--bg3); border: 1px solid #1e1e1e; padding: 5px 6px; text-align: center; }
+.sim-stat-v { font-size: 13px; font-weight: bold; color: var(--text); }
+.sim-stat-v.dealt { color: #3dff7a; }
+.sim-stat-l { font-size: 9px; color: #444; text-transform: uppercase; margin-top: 1px; }
+
+#sim-log-toggle { font-size: 10px; color: #555; cursor: pointer; user-select: none; padding: 2px 0; }
+#sim-log-toggle:hover { color: #888; }
+#sim-log { font-size: 10px; color: #666; max-height: 180px; overflow-y: auto; margin-top: 4px;
+           border: 1px solid #1a1a1a; padding: 5px 7px; background: var(--bg3); line-height: 1.6; }
+.sim-log-turn { border-bottom: 1px solid #161616; padding: 1px 0; }
+.sim-log-turn .p { color: #8cc; }
+.sim-log-turn .m { color: #c88; }
+.sim-log-outcome { font-weight: bold; padding-top: 4px; }
+.sim-log-outcome.win  { color: #3dff7a; }
+.sim-log-outcome.lose { color: var(--accent); }
+</style>
+</head>
+<body>
+<script src="/dev_js/nav.js"></script>
+
+<div id="toolbar">
+  <h1>⚖ BALANCE</h1>
+  <div class="tb-sep"></div>
+  <label class="tb-lbl">Уровень
+    <input type="range" id="lvl-range" min="1" max="10" value="1">
+    <strong id="lvl-num" style="min-width:12px">1</strong>
+  </label>
+  <div class="tb-sep"></div>
+  <span id="sp-counter">SP: 0 / 1</span>
+  <div class="tb-sep"></div>
+  <button class="btn" id="btn-reset-skills">↺ Скиллы</button>
+  <button class="btn" id="btn-reset-equip">↺ Экип</button>
+</div>
+
+<div id="main">
+  <!-- Left: Skills -->
+  <div id="panel-skills" style="width:272px">
+    <div class="branch-tabs">
+      <button class="branch-tab active" data-branch="battle">Жестокость</button>
+      <button class="branch-tab"        data-branch="survival">Смирение</button>
+      <button class="branch-tab"        data-branch="magic">Отрицание</button>
+    </div>
+    <div id="skill-list"></div>
+  </div>
+
+  <div class="resize-handle" id="rh-left"></div>
+
+  <!-- Center: Stats + Equipment -->
+  <div id="panel-stats">
+    <div class="two-col">
+      <!-- HP -->
+      <div class="stat-card">
+        <div class="stat-card-title">❤ <span>HP</span></div>
+        <div class="bar-wrap">
+          <div class="bar"><div class="bar-fill hp" id="bar-hp" style="width:100%"></div></div>
+          <div class="bar-num hp" id="val-hp">100</div>
+        </div>
+      </div>
+      <!-- Energy -->
+      <div class="stat-card">
+        <div class="stat-card-title">⚡ <span>Energy</span></div>
+        <div class="bar-wrap">
+          <div class="bar"><div class="bar-fill energy" id="bar-en" style="width:100%"></div></div>
+          <div class="bar-num energy" id="val-en">100</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attack -->
+    <div class="stat-card">
+      <div class="stat-card-title">⚔ <span>Атака</span></div>
+      <div class="stat-row"><span class="lbl">Урон</span><span class="val hi" id="s-atk-int">20</span></div>
+      <div class="stat-row"><span class="lbl">Шанс крита</span><span class="val" id="s-atk-cc">5%</span></div>
+      <div class="stat-row"><span class="lbl">Множитель крита</span><span class="val" id="s-atk-cm">+30%</span></div>
+      <div class="stat-row"><span class="lbl">Стоимость</span><span class="val dim" id="s-atk-ec">20 ⚡</span></div>
+      <div class="avg-dmg" id="s-atk-avg"></div>
+    </div>
+
+    <!-- Defend -->
+    <div class="stat-card">
+      <div class="stat-card-title">🛡 <span>Защита</span></div>
+      <div class="stat-row"><span class="lbl">Блок урона</span><span class="val hi" id="s-def-int">40</span></div>
+      <div class="stat-row"><span class="lbl">Стоимость</span><span class="val dim" id="s-def-ec">15 ⚡</span></div>
+    </div>
+
+    <!-- Magic Attack -->
+    <div class="stat-card" id="card-magic-atk" style="display:none">
+      <div class="stat-card-title">✨ <span>Маг. атака</span></div>
+      <div class="stat-row"><span class="lbl">Урон ×3</span><span class="val hi" id="s-matk-int">40</span></div>
+      <div class="stat-row"><span class="lbl">Шанс крита</span><span class="val" id="s-matk-cc">1%</span></div>
+      <div class="stat-row"><span class="lbl">Множитель крита</span><span class="val" id="s-matk-cm">+30%</span></div>
+      <div class="stat-row"><span class="lbl">Стоимость</span><span class="val dim" id="s-matk-ec">25 ⚡</span></div>
+      <div class="avg-dmg" id="s-matk-avg"></div>
+    </div>
+
+    <!-- Magic Defend -->
+    <div class="stat-card" id="card-magic-def" style="display:none">
+      <div class="stat-card-title">🔮 <span>Маг. защита</span></div>
+      <div class="stat-row"><span class="lbl">Блок урона</span><span class="val hi" id="s-mdef-int">30</span></div>
+      <div class="stat-row"><span class="lbl">Стоимость</span><span class="val dim" id="s-mdef-ec">15 ⚡</span></div>
+    </div>
+
+    <!-- Heal + Wait -->
+    <div class="two-col">
+      <div class="stat-card">
+        <div class="stat-card-title">💚 <span>Лечение ×3</span></div>
+        <div class="stat-row"><span class="lbl">Восст. HP</span><span class="val hi" id="s-heal-int">25</span></div>
+        <div class="stat-row"><span class="lbl">Стоимость</span><span class="val dim" id="s-heal-ec">20 ⚡</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">⏳ <span>Ожидание</span></div>
+        <div class="stat-row"><span class="lbl">+Энергии</span><span class="val hi" id="s-wait-int">25</span></div>
+      </div>
+    </div>
+
+    <!-- Equipment -->
+    <div class="stat-card">
+      <div class="stat-card-title">🎒 <span>Снаряжение</span></div>
+      <div class="equip-grid" id="equip-grid"></div>
+    </div>
+
+    <!-- Combat Simulator -->
+    <div class="stat-card">
+      <div class="stat-card-title">⚔ <span>Симуляция боя</span></div>
+      <div class="sim-controls">
+        <div class="sim-field">
+          <span class="sim-lbl">Тип</span>
+          <select id="sim-enemy-type">
+            <option value="mob">Моб</option>
+            <option value="boss">Босс</option>
+          </select>
+        </div>
+        <div class="sim-field">
+          <span class="sim-lbl">Противник</span>
+          <select id="sim-enemy-id"></select>
+        </div>
+        <div class="sim-field">
+          <span class="sim-lbl">Уровень данжа</span>
+          <input type="number" id="sim-dungeon-lvl" min="1" max="16" value="1" style="width:44px">
+        </div>
+        <div class="sim-field">
+          <span class="sim-lbl">Стратегия</span>
+          <select id="sim-strategy">
+            <option value="aggressive">Атака</option>
+            <option value="balanced" selected>Баланс</option>
+            <option value="defensive">Защита</option>
+          </select>
+        </div>
+        <div class="sim-field">
+          <span class="sim-lbl">Боёв</span>
+          <select id="sim-runs">
+            <option value="100">100</option>
+            <option value="500" selected>500</option>
+            <option value="1000">1000</option>
+          </select>
+        </div>
+        <button class="btn" id="sim-run" style="align-self:flex-end">▶ Бой</button>
+      </div>
+
+      <div id="sim-results" style="display:none">
+        <div class="sim-summary">
+          <div>
+            <div class="sim-big-pct" id="sim-win-pct">—</div>
+            <div class="sim-win-sub">побед из <span id="sim-runs-total">—</span></div>
+          </div>
+          <div style="flex:1">
+            <div class="sim-stats-grid">
+              <div class="sim-stat"><div class="sim-stat-v" id="sim-avg-turns">—</div><div class="sim-stat-l">ходов</div></div>
+              <div class="sim-stat"><div class="sim-stat-v" id="sim-avg-hp">—</div><div class="sim-stat-l">HP осталось</div></div>
+              <div class="sim-stat"><div class="sim-stat-v dealt" id="sim-avg-dealt">—</div><div class="sim-stat-l">нанесено</div></div>
+              <div class="sim-stat"><div class="sim-stat-v" id="sim-avg-taken">—</div><div class="sim-stat-l">получено</div></div>
+            </div>
+          </div>
+        </div>
+        <div id="sim-log-toggle">▸ Пример боя</div>
+        <div id="sim-log" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resize-handle" id="rh-right"></div>
+
+  <!-- Right: XP Calculator -->
+  <div id="panel-xp" style="width:266px">
+    <div class="xp-top">
+      <h3>⚗ XP Калькулятор</h3>
+      <div class="xp-inputs">
+        <label>С уровня<input type="number" id="xp-from" min="1" max="9" value="1"></label>
+        <label>До уровня<input type="number" id="xp-to"   min="2" max="100" value="10"></label>
+      </div>
+      <div id="xp-needed">Нужно XP: <span id="xp-delta">—</span></div>
+      <label class="tb-lbl" style="margin-bottom:8px;font-size:10px;color:#555">
+        Уровень подземелья:
+        <input type="range" id="dungeon-lvl" min="1" max="100" value="1" style="width:80px;accent-color:#c9aa6a">
+        <strong id="dungeon-lvl-num" style="color:#c9aa6a;min-width:10px">1</strong>
+      </label>
+    </div>
+    <div id="level-progress"></div>
+    <div class="xp-tab-hd">
+      <span class="mob-name">Моб</span>
+      <span class="mob-xp">HP / ATK</span>
+      <span class="mob-kills">XP / Убийств</span>
+    </div>
+    <div id="mob-table"></div>
+  </div>
+</div>
+
+<script src="/dev_js/balance_editor.js"></script>
+<script>
+(function () {
+  function initResize(handle, getPanel, side) {
+    // side: 'left' → dragging handle moves right edge of left panel
+    //        'right' → dragging handle moves left edge of right panel
+    handle.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      handle.classList.add('dragging');
+      const startX   = e.clientX;
+      const startW   = getPanel().offsetWidth;
+      const minW     = parseInt(getComputedStyle(getPanel()).minWidth) || 160;
+      const maxW     = parseInt(getComputedStyle(getPanel()).maxWidth) || 520;
+
+      function onMove(e) {
+        const delta = side === 'left' ? e.clientX - startX : startX - e.clientX;
+        const newW  = Math.min(maxW, Math.max(minW, startW + delta));
+        getPanel().style.width = newW + 'px';
+      }
+      function onUp() {
+        handle.classList.remove('dragging');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup',   onUp);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup',   onUp);
+    });
+  }
+
+  initResize(
+    document.getElementById('rh-left'),
+    () => document.getElementById('panel-skills'),
+    'left'
+  );
+  initResize(
+    document.getElementById('rh-right'),
+    () => document.getElementById('panel-xp'),
+    'right'
+  );
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "name": "Lux-Aeterna-Dungeon",
+  "version": "0.1.3",
+  "description": "Beat or Defend - turn-based AI battle game",
+  "main": "app/electron/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js -developer",
+    "edit_game": "node --watch dev/dev.js",
+    "electron": "electron .",
+    "electron_dev": "electron . -developer",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "undici": "^7.28.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.game.lux-aeterna-dungeon",
+    "productName": "Lux Aeterna Dungeon",
+    "directories": {
+      "output": "app/electron/dist"
+    },
+    "files": [
+      "app/electron/main.js",
+      "app/electron/preload.js",
+      "server/**/*",
+      "public/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}

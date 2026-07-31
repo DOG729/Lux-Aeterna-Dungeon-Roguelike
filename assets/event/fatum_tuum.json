@@ -1,0 +1,99 @@
+{
+  "fatum_tuum_encounter": {
+    "_comment": "Встреча с финальным боссом Фатум Туум. Хук: on_encounter.",
+    "once": true,
+    "actions": [
+      { "set": { "storyFlag:boss_encountered": true } },
+      { "music": "music_boss_fatum_tuum" },
+      {
+        "select": [
+          { "if": ["condition:karma_good"], "video": "cutscene_fatum_enter_good" },
+          { "if": ["condition:karma_bad"],  "video": "cutscene_fatum_enter_bad" },
+          { "if": [],                        "video": "cutscene_fatum_enter_neutral" }
+        ]
+      },
+      { "dialogue": "fatum_tuum_encounter" }
+    ]
+  },
+
+  "fatum_tuum_death": {
+    "_comment": "Смерть финального босса — выбор концовки и финальный ролик. Хук: on_death.",
+    "once": true,
+    "actions": [
+      { "music": null },
+      {
+        "select": [
+          {
+            "_comment": "Освобождение: хорошая карма + принял судьбу + НЕ использовал магию",
+            "if": ["storyFlag:fate_accepted", "condition:karma_good", "!condition:used_magic"],
+            "video": "cutscene_ending_liberation"
+          },
+          {
+            "_comment": "Слияние: убивал без пощады",
+            "if": ["condition:karma_bad"],
+            "video": "cutscene_ending_merge"
+          },
+          {
+            "_comment": "Упокоение: всё остальное (магия, смешанный путь)",
+            "if": [],
+            "video": "cutscene_ending_neutral"
+          }
+        ]
+      },
+      {
+        "select": [
+          { "if": ["storyFlag:fate_accepted", "condition:karma_good", "!condition:used_magic"], "set": { "storyFlag:ending": "liberation" } },
+          { "if": ["condition:karma_bad"],                                                       "set": { "storyFlag:ending": "merge" } },
+          { "if": [],                                                                             "set": { "storyFlag:ending": "neutral" } }
+        ]
+      }
+    ]
+  },
+
+  "fatum_tuum_taunt": {
+    "_comment": "Реплика босса при прицеливании игрока. Хук: on_target. Повторяется.",
+    "once": false,
+    "actions": [
+      {
+        "select": [
+          { "if": ["condition:karma_good"], "sound": "voice_fatum_taunt_good" },
+          { "if": ["condition:karma_bad"],  "sound": "voice_fatum_taunt_bad" },
+          { "if": [],                        "sound": "voice_fatum_taunt_neutral" }
+        ]
+      }
+    ]
+  },
+
+  "fatum_tuum_door": {
+    "_comment": [
+      "Игрок взаимодействует с дверью в зал финального босса. Хук двери: on_interact.",
+      "Цепочка: дверь открывается → атмосфера → переход в encounter."
+    ],
+    "once": true,
+    "actions": [
+      { "sound": "sound_door_boss_open" },
+      { "music": "music_boss_approach" },
+      {
+        "narrator": {
+          "text": "За дверью — тишина другого качества. Не мёртвая. Ожидающая.",
+          "text_key": "narrator.fatum_door.approach",
+          "skippable": true
+        }
+      },
+      { "event": "fatum_tuum_encounter" }
+    ]
+  },
+
+  "fatum_tuum_chamber_enter": {
+    "_comment": [
+      "Игрок входит в зал финального босса без взаимодействия с дверью (телепорт, падение и т.д.).",
+      "Хук комнаты: on_room_first_enter. Дублирует логику двери для edge-case.",
+      "once: true здесь + once: true в fatum_tuum_encounter гарантируют что encounter не повторится."
+    ],
+    "once": true,
+    "actions": [
+      { "music": "music_boss_approach" },
+      { "event": "fatum_tuum_encounter" }
+    ]
+  }
+}

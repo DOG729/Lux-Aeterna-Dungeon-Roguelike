@@ -1,0 +1,16 @@
+{
+  "speed_ms": {
+    "excellent": 3000,
+    "good": 8000,
+    "fair": 15000
+  },
+  "score_all_passed_base": 70,
+  "score_all_passed_speed_weight": 30,
+  "score_partial_multiplier": 60,
+  "ratings": [
+    { "key": "excellent", "min_score": 90 },
+    { "key": "good",      "min_score": 70 },
+    { "key": "fair",      "min_score": 40 },
+    { "key": "poor",      "min_score": 0  }
+  ]
+}

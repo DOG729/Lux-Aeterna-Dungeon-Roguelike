@@ -1,0 +1,444 @@
+[
+    {
+        "id": "skeleton1",
+        "name": "Скелет",
+        "weight": 10,
+        "promt": {
+            "general": "Скелет который уже давно бродит по лабиринту подземелья",
+            "soul": "Когда-то был воином, теперь — лишь оживлённые кости без памяти и воли",
+            "behavior": "Атакует сразу без предупреждения, действует инстинктивно",
+            "communication_style": "Почти не говорит, скрежещет костями (пример: `*Стучит челюстью* с-м-еерть`, немного неразборчивый текст)"
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} стоял у входа и смотрел на тебя. (Внешний вид {mob_name}: Скелет с голыми костями, с длинной палкой, и разорванным коричневым плащем)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "key": "encounter_berserk_kills",
+                    "text": "{mob_name} шагнул из тьмы — и на миг замер. От тебя разит смертью.",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "key": "encounter_wounded",
+                    "text": "{mob_name} увидел твои раны и клацнул зубами — почти радостно.",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.55,
+            "energy": 0.6
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 1,
+                "chance": 0.5
+            }
+        ],
+        "imags": {
+            "default": "skeleton/skeleton.png",
+            "attack": "skeleton/skeleton_attack.png",
+            "dead": "skeleton/skeleton_dead.png"
+        },
+        "pawn": "skeleton/pawn.png",
+        "level": [
+            "1-8"
+        ],
+        "multiplier": {
+            "hp": 1.1,
+            "attack": 1.1,
+            "xp": 1.06
+        },
+        "xp": 25,
+        "hp": 25,
+        "energy": 60,
+        "function": {
+            "attack": {
+                "int": 15,
+                "chance_critical": 0.05,
+                "multiplier_critical": 0.2,
+                "action": true
+            },
+            "defend": {
+                "int": 0,
+                "action": false
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    },
+    {
+        "id": "skeleton2",
+        "name": "Скелет (Солдат)",
+        "weight": 10,
+        "promt": {
+            "general": "Скелет который уже давно бродит по лабиринту подземелья",
+            "soul": "Когда-то был воином, теперь — лишь оживлённые кости без памяти и воли",
+            "behavior": "Атакует сразу без предупреждения, действует инстинктивно",
+            "communication_style": "Почти не говорит, скрежещет костями (пример: `*Стучит челюстью* с-м-еерть`, немного неразборчивый текст)"
+        },
+        "surrender_difficulty": {
+            "hp": 0.78,
+            "energy": 0.76
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 1,
+                "chance": 0.8
+            }
+        ],
+        "imags": {
+            "default": "skeleton/skeleton2.png",
+            "attack": "skeleton/skeleton_attack.png",
+            "dead": "skeleton/skeleton_dead.png"
+        },
+        "pawn": "skeleton/pawn.png",
+        "level": [
+            "3-15"
+        ],
+        "multiplier": {
+            "hp": 1.14,
+            "attack": 1.1,
+            "defend": 1.01,
+            "xp": 1.11
+        },
+        "xp": 33,
+        "hp": 45,
+        "energy": 90,
+        "function": {
+            "attack": {
+                "int": 19,
+                "chance_critical": 0.1,
+                "multiplier_critical": 0.35,
+                "action": true
+            },
+            "defend": {
+                "int": 45,
+                "action": true
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    },
+    {
+        "id": "skeleton_heretic",
+        "name": "Мертвый Еретик",
+        "weight": 10,
+        "promt": "(Шепчет о каком то проклятье), желает упокоиться",
+        "surrender_difficulty": {
+            "hp": 0.75,
+            "energy": 0.55
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 2,
+                "chance": 0.9
+            }
+        ],
+        "style": {
+            "shadow_color": "#1A6C23",
+            "shadow_opacity": 0.3
+        },
+        "imags": {
+            "default": "skeleton_heretic/skeleton_heretic.png",
+            "attack": "skeleton_heretic/skeleton_heretic_attack.png",
+            "dead": "skeleton_heretic/skeleton_heretic_dead.png"
+        },
+        "pawn": "skeleton_heretic/pawn.png",
+        "level": [
+            "3-15"
+        ],
+        "multiplier": {
+            "hp": 1.13,
+            "attack": 1.09,
+            "xp": 1.12
+        },
+        "xp": 35,
+        "hp": 40,
+        "energy": 100,
+        "function": {
+            "attack": {
+                "int": 22,
+                "chance_critical": 0.15,
+                "multiplier_critical": 0.4,
+                "action": true
+            },
+            "defend": {
+                "int": 28,
+                "action": true
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 15,
+                "action": true
+            }
+        },
+        "stats": {},
+        "encounter_text": {
+            "is_ai": false,
+            "default": "",
+            "variants": []
+        },
+        "script": [
+            {
+                "type": "edit",
+                "if": [["player:level", ">=", 5]],
+                "edit": {
+                    "multiplier": {
+                        "hp": 1.2,
+                        "attack": 1.09,
+                        "xp": 1.15
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": "skeleton_heretic_berserk",
+        "name": "Мертвый Еретик (Берсерк)",
+        "weight": 3,
+        "promt": "Повторяет слово (Necessario), Жаждет крови",
+        "surrender_difficulty": {
+            "hp": 0.85,
+            "energy": 0.8
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 2,
+                "chance": 0.9
+            }
+        ],
+        "style": {
+            "shadow_color": "#AA0000",
+            "shadow_opacity": 0.3
+        },
+        "imags": {
+            "default": "skeleton_heretic/skeleton_heretic2.png",
+            "attack": "skeleton_heretic/skeleton_heretic_attack2.png",
+            "dead": "skeleton_heretic/skeleton_heretic_dead.png"
+        },
+        "pawn": "skeleton_heretic/pawn.png",
+        "level": [
+            "4-5",
+            "7-9",
+            "10-15"
+        ],
+        "multiplier": {
+            "hp": 1.23,
+            "attack": 1.12,
+            "heal": 1.05,
+            "xp": 1.15
+        },
+        "xp": 45,
+        "hp": 35,
+        "energy": 85,
+        "function": {
+            "attack": {
+                "int": 24,
+                "chance_critical": 0.15,
+                "multiplier_critical": 0.4,
+                "action": true
+            },
+            "defend": {
+                "int": 30,
+                "action": true
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 17,
+                "action": true
+            }
+        }
+    },
+    {
+        "id": "the_undead_stick",
+        "name": "Иссохший",
+        "weight": 4,
+        "promt": "Что-то бормочит — неразборчиво, не особо хочет сражаться, при малейшей возможности предпочтёт сдаться. Иногда упоминает `Mortuus requiem`. (стиль речи: `Н-е х-оч-у... Я-я... Mo-rt-uus req-uie-m`)",
+        "script": [
+            {
+                "type": "ai_surrender",
+                "if": [],
+                "min_msg_length": 20,
+                "hint": "Он жаждет упокоения и вечного покоя — его можно убедить, если пообещать прекратить его страдания, дать ему покой, или упомянуть что его мучения закончатся. Он реагирует на слова о покое, Mortuus requiem, конце страданий."
+            },
+            {
+                "type": "edit",
+                "if": [
+                    "condition:berserk"
+                ],
+                "edit": [
+                    {
+                        "surrender_difficulty": {
+                            "hp": 0.55
+                        }
+
+                    }
+                ]
+            },
+            {
+                "type": "edit",
+                "if": [
+                    "condition:karma_good"
+                ],
+                "edit": [
+                    {
+                        "surrender_difficulty": {
+                            "hp": 0
+                        }
+                    }
+                ]
+            }
+        ],
+        "surrender_difficulty": {
+            "hp": 0.35
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": [
+                    2,
+                    3
+                ],
+                "chance": 0.8
+            }
+        ],
+        "imags": {
+            "default": "the_undead_stick/the_undead_stick.webp",
+            "defend": "the_undead_stick/the_undead_stick_defend.png",
+            "attack": "the_undead_stick/the_undead_stick_attack.png", 
+            "dead": "the_undead_stick/the_undead_stick_dead.png"
+        },
+        "pawn": "the_undead_stick/pawn.png",
+        "level": [
+            "1-5",
+            "7-8"
+        ],
+        "multiplier": {
+            "hp": 1.13,
+            "attack": 1.14,
+            "xp": 1.02
+        },
+        "xp": 18,
+        "hp": 21,
+        "energy": 70,
+        "function": {
+            "attack": {
+                "int": 18,
+                "chance_critical": 0.11,
+                "multiplier_critical": 0.32,
+                "action": true
+            },
+            "defend": {
+                "int": 23,
+                "action": true
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    },
+    {
+        "id": "the_undead_thief",
+        "name": "Иссохший Лазутчик",
+        "weight": 3,
+        "promt": "Что-то бормочит - неразборчиво, часто атакует, иногда упомянает `Mortuus requiem`. (стиль общения: `У-й-диии... не см-отри!`)",
+        "surrender_difficulty": {
+            "hp": 0.7,
+            "energy": 0.5
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": [
+                    2,
+                    4
+                ],
+                "chance": 0.9
+            }
+        ],
+        "imags": {
+            "default": "the_undead_thief/the_undead_thief.webp",
+            "attack": "the_undead_thief/the_undead_thief_attack.png",
+            "dead": "the_undead_thief/the_undead_thief_dead.png",
+            "effects": {
+                "attack": {
+                    "crit": "effects/multiple_attacks_1.png"
+                }
+            }
+        },
+        "pawn": "the_undead_thief/pawn.png",
+        "level": [
+            "4-15"
+        ],
+        "multiplier": {
+            "hp": 1.14,
+            "attack": 1.16,
+            "xp": 1.09
+        },
+        "xp": 45,
+        "hp": 30,
+        "energy": 100,
+        "function": {
+            "attack": {
+                "int": 20,
+                "chance_critical": 0.2,
+                "multiplier_critical": 0.42,
+                "action": true
+            },
+            "defend": {
+                "int": 24,
+                "action": true
+            },
+            "wait": {
+                "int": 22,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    }
+]

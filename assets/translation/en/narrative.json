@@ -1,0 +1,21 @@
+{
+    "before_combat": {
+        "default":           "Unexpected encounter with {mob_name}.",
+        "narrative_berserk": "{mob_name} stepped from the darkness — and paused. You reek of death.",
+        "narrative_wounded": "{mob_name} saw your wounds and saw an opportunity."
+    },
+    "after_combat": {
+        "default": "{mob_name} breathed their last."
+    },
+    "after_defeat": {
+        "default": "You breathed your last…"
+    },
+    "npc_trader": {
+        "default":           "You met {npc_name}.",
+        "narrative_berserk": "{npc_name} the trader looked at you with great displeasure."
+    },
+    "npc_other": {
+        "default":           "You met {npc_name}.",
+        "narrative_berserk": "{npc_name} looked at you with fear."
+    }
+}

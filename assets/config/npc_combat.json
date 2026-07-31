@@ -1,0 +1,25 @@
+{
+  "relationship": {
+    "min": -100,
+    "max": 100,
+    "default_kill_delta": -20,
+    "default_spare_delta": 10,
+    "tiers": [
+      { "key": "main_enemy",  "min": -100, "max": -70 },
+      { "key": "enemy",       "min": -69,  "max": -25 },
+      { "key": "neutral",     "min": -24,  "max": 24  },
+      { "key": "friend",      "min": 25,   "max": 69  },
+      { "key": "main_friend", "min": 70,   "max": 100 }
+    ]
+  },
+  "memory": {
+    "token_char_ratio": 4,
+    "max_tokens_session": 1000,
+    "max_tokens_account": 500,
+    "max_records": 30,
+    "compact_every": 5
+  },
+  "dream": {
+    "max_change_default": 10
+  }
+}

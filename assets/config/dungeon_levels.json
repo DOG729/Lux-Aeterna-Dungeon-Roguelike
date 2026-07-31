@@ -1,0 +1,52 @@
+{
+    "default": {
+        "min": 8,
+        "max": 14
+    },
+    "1": {
+        "plan": [
+            "level_plan/map_level_1_1.json"
+        ]
+    },
+    "2-4": {
+        "min": 8,
+        "max": 10,
+        "min_mob": 2
+    },
+    "5": {
+        "min": 11,
+        "max": 18,
+        "min_mob": 4,
+        "boss": [
+            {
+                "id": "skeleton_golem",
+                "count": 1,
+                "action": "door"
+            }
+        ],
+        "use_door": {
+                "function": "add_exp",
+                "int": 150
+        }
+    },
+    "6-15": {
+        "min": 10,
+        "max": 18,
+        "min_mob": 5
+    },
+    "16": {
+        "min": 20,
+        "max": 25,
+        "min_mob": 8,
+        "boss": [
+            {
+                "id": "skeleton_golem",
+                "count": 1,
+                "action": "door"
+            }
+        ],
+        "use_door": {
+            "function": "end_game"
+        }
+    }
+}

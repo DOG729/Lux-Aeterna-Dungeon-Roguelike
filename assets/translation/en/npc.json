@@ -1,0 +1,18 @@
+{
+  "man_bandages": {
+    "name":                    "Unnamed Merchant",
+    "promt":                   "An old merchant in tattered bandages. Speaks briefly, a bit grumpy, but honest.",
+    "narrative_default":       "In the corner of the cave sits {npc_name}. Wrapped entirely in old bandages — no eyes, no mouth visible. A leather satchel hangs from his shoulder.",
+    "dialogue_intro_normal":   "Got something for a wanderer. Gold follows you to the grave — spend it here.",
+    "dialogue_intro_berserk":  "...quiet. Quiet. I'm not the enemy. Look — goods. Just goods.",
+    "dialogue_shop_reply":     "See for yourself.",
+    "dialogue_leave_reply":    "...as you like."
+  },
+  "one_lost": {
+    "name":                   "The Lost One",
+    "narrative_default":      "You left the room with the pentagram and saw {npc_name}. He glanced at you in fright, then his gaze seemed to pass right through you — as though he could see something beyond.",
+    "dialogue_intro":         "...are you searching too?",
+    "dialogue_intro_repeat":  "Searching again?",
+    "dialogue_intro_hostile": "...You again. Please, don't touch me again."
+  }
+}

@@ -1,0 +1,12 @@
+[
+  { "level": 1,  "xpRequired": 0,    "skillPoints": 0 },
+  { "level": 2,  "xpRequired": 80,   "skillPoints": 1 },
+  { "level": 3,  "xpRequired": 200,  "skillPoints": 1 },
+  { "level": 4,  "xpRequired": 380,  "skillPoints": 2 },
+  { "level": 5,  "xpRequired": 620,  "skillPoints": 2 },
+  { "level": 6,  "xpRequired": 930,  "skillPoints": 2 },
+  { "level": 7,  "xpRequired": 1310, "skillPoints": 3 },
+  { "level": 8,  "xpRequired": 1770, "skillPoints": 3 },
+  { "level": 9,  "xpRequired": 2320, "skillPoints": 3 },  
+  { "level": 10, "xpRequired": 2970, "skillPoints": 3 } 
+] 

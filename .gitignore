@@ -1,0 +1,14 @@
+app/electron/dist
+node_modules
+/save/
+/lore/*.md
+/roadmap/*.md
+!/lore/LICENSE.md
+
+# ------------------------
+#         EDITORS
+# ------------------------
+.idea/
+.vscode/
+.cursor/
+.claude/

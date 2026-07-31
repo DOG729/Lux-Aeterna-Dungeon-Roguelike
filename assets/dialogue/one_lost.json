@@ -1,0 +1,211 @@
+{
+  "one_lost_intro": {
+    "_comment": [
+      "Первый разговор с Потерянным.",
+      "once: true — скрипт только при первом открытии, дальше свободный чат.",
+      "При account:gamesStarted >= 5 — NPC говорит будто уже видел."
+    ],
+    "lore": "assets/translation/{lang}/promts/lore/one_lost.md",
+    "trigger": "on_npc_open",
+    "once": true,
+    "skippable": true,
+    "text_blips_default": { "src": "ui/text_blips.mp3", "volume": 0.5 },
+    "entry": [
+      { "if": [["npc:status", "is", ["enemy", "main_enemy"]]], "node": "open_repeat_hostile" },
+      { "if": ["account:npcsMet:one_lost", ["account:gamesStarted", ">=", 2]], "node": "open_repeat" },
+      { "if": [], "node": "open" }
+    ],
+    "script": [
+
+      {
+        "id": "open",
+        "speaker": "npc",
+        "is_ai": false,
+        "text_key": "npc.one_lost.dialogue_intro",
+        "narrative": "npc:one_lost:narrative_text",
+        "text": "...ты тоже ищешь?",
+        "text_blips": { "src": "ui/text_blips_00001.mp3", "volume": 0.5 }, 
+        "next": "player_choice"
+      },
+      {
+        "id": "open_repeat",
+        "speaker": "npc",
+        "is_ai": true,
+        "dream_ai": true,
+        "ai_hint": "The player had been here before, he came out of this room again with an ominous aura. Answer briefly and distantly.",
+        "text_key": "npc.one_lost.dialogue_intro_repeat",
+        "narrative": "npc:one_lost:narrative_text",
+        "text_blips": { "src": "ui/text_blips_00001.mp3", "volume": 0.5 }, 
+        "text": "Снова что-то ищешь?",
+        "next": "player_choice_repeat"
+      },
+      {
+        "id": "open_repeat_hostile",
+        "speaker": "npc",
+        "is_ai": true,
+        "dream_ai": true,
+        "text_blips": { "src": "ui/text_blips_00001.mp3", "volume": 0.5 },
+        "narrative": "npc:one_lost:narrative_text",
+        "ai_hint": "Игрок и раньше нападал на тебя, отношения враждебные. Ты его боишься и обижен одновременно, съёживаешься, говоришь тихо и настороженно. 1 короткая фраза.",
+        "text_key": "npc.one_lost.dialogue_intro_hostile",
+        "text": "...Опять ты. Пожалуйста, не трогай меня снова.",
+        "next": "player_choice_repeat"
+      },
+      {
+        "id": "player_choice",
+        "speaker": "npc",
+        "text_key": "dialogue.one_lost.player_choice",
+        "text": "...Или просто идёшь?",
+        "text_blips": { "src": "ui/text_blips_00002_max.mp3", "volume": 0.5 },
+        "options": [
+          {
+            "text": "Иду... Где я?",
+            "text_key": "dialogue.one_lost.wandering",
+            "if": [],
+            "next": "lost_wandering"
+          },
+          {
+            "text": "Ищу выход.",
+            "text_key": "dialogue.one_lost.exit",
+            "if": [],
+            "next": "lost_exit"
+          },
+          {
+            "text": "Не твоё дело.",
+            "text_key": "dialogue.one_lost.rude",
+            "if": [],
+            "next": "lost_rude"
+          }
+        ]
+      },
+      {
+        "id": "player_choice_repeat",
+        "speaker": "npc",
+        "text_key": "dialogue.one_lost.player_choice_repeat",
+        "is_ai": true,
+        "dream_ai": true,
+        "ai_hint": "The player looks tired, as if he has lost something. Answer briefly",
+        "text": "...Или снова просто идёшь?",
+        "text_blips": { "src": "ui/text_blips_00002_max.mp3", "volume": 0.5 },
+        "options": [
+          {
+            "text": "ПОЧЕМУ Я СНОВА ТУТ?!",
+            "text_key": "dialogue.one_lost.why_again",
+            "if": [["account:gamesStarted", ">=", 4]],
+            "next": "lost_wandering_anger"
+          },
+          {
+            "text": "Иду... Где я?",
+            "text_key": "dialogue.one_lost.wandering",
+            "if": [["account:gamesStarted", "<", 4]],
+            "next": "lost_wandering"
+          },
+          {
+            "text": "Ищу выход.",
+            "text_key": "dialogue.one_lost.exit",
+            "if": [["account:gamesStarted", "<", 2]],
+            "next": "lost_exit"
+          },
+          {
+            "text": "Расскажи мне больше",
+            "text_key": "dialogue.one_lost.free_chat_more",
+            "if": [["account:gamesStarted", ">=", 2]],
+            "ends_with": "free_chat"
+          },
+          {
+            "text": "Не твоё дело.",
+            "text_key": "dialogue.one_lost.rude",
+            "if": [],
+            "next": "lost_rude"
+          }
+        ]
+      },
+      {
+        "id": "lost_wandering",
+        "speaker": "npc",
+        "is_ai": true,
+        "ai_hint": "Игрок спрашивает где он (в подземелье). И что он куда-то идет куда-то. Ответь туманно, немного сочувственно. Пробормочи про старый ключ в этой комноте, который где-то тут. 1 предложение.",
+        "text": "Просто идёшь... Я тоже когда-то просто шёл. А где ты? Там где я.",
+        "options": [
+          {
+            "text": "Ищу выход.",
+            "text_key": "dialogue.one_lost.exit",
+            "if": [],
+            "next": "lost_exit"
+          },
+          {
+            "text": "Расскажи мне больше",
+            "text_key": "dialogue.one_lost.free_chat_more",
+            "if": [],
+            "ends_with": "free_chat"
+          }
+        ]
+      },
+      {
+        "id": "lost_wandering_anger",
+        "speaker": "npc",
+        "is_ai": true,
+        "dream_ai": true,
+        "ai_hint": "Игрок раздраженный спрашивает почему он снова оказался, рядом с тобой (в самом незу подземелья). Ты его видишь уже не раз, он каждый раз возвращается в эту комнату. Ответь туманно, немного сочувственно. 1-2 предложение.",
+        "text": "Я не знаю. Я просто сижу тут... Я тоже когда-то просто шёл... Но я не знаю куда.",
+        "options": [
+          {
+            "text": "Ищу выход.",
+            "text_key": "dialogue.one_lost.exit",
+            "if": [],
+            "next": "lost_exit"
+          },
+          {
+            "text": "Расскажи мне больше",
+            "text_key": "dialogue.one_lost.free_chat_more",
+            "if": [],
+            "ends_with": "free_chat"
+          }
+        ]
+      },
+      {
+        "id": "lost_exit",
+        "speaker": "npc",
+        "is_ai": true,
+        "ai_hint": "Игрок ищет выход. Ты не знаешь где он — и это само по себе говорит о многом. Загадочно, немного грустно. 1-2 предложения. Но ты знаешь что в этой комноте есть ключ, который ведеь к верхним этажам.",
+        "text": "Выход... Многие ищут. Мало кто возвращается с ответом. Но есть ключ... он откроет дверь...",
+        "options": [
+          {
+            "text": "Где я?",
+            "text_key": "dialogue.one_lost.where_i",
+            "if": [["account:gamesStarted", "<", 4]],
+            "next": "lost_wandering"
+          },
+          {
+            "text": "Расскажи мне больше",
+            "text_key": "dialogue.one_lost.free_chat_more",
+            "if": [],
+            "ends_with": "free_chat"
+          }
+        ]
+      },
+      {
+        "id": "lost_rude",
+        "speaker": "npc",
+        "is_ai": true,
+        "dream_ai": {"max_change": 1},
+        "ai_hint": "Игрок грубо оборвал. Ты не обиделся — просто ушёл в себя. Тихо, почти не слышно. 1 фраза.",
+        "text": "...да. Конечно. Прости.",
+        "options": [
+          {
+            "text": "Напасть",
+            "text_key": "dialogue.one_lost.attack",
+            "if": ["!npc:defeated"],
+            "ends_with": "combat"
+          },
+          {
+            "text": "Уйти",
+            "text_key": "dialogue.one_lost.leave",
+            "if": [],
+            "ends_with": "close"
+          }
+        ]
+      }
+    ]
+  }
+}

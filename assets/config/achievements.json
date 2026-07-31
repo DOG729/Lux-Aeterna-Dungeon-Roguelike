@@ -1,0 +1,50 @@
+[
+    {
+        "id": "point_1",
+        "name": "Мудрость предков",
+        "description": "+1 очко навыка",
+        "type": "point",
+        "int": 1
+    },
+    {
+        "id": "point_2",
+        "name": "Мудрость предков II",
+        "description": "+1 очко навыка",
+        "type": "point",
+        "int": 1
+    },
+    {
+        "id": "point_3",
+        "name": "Мудрость предков III",
+        "description": "+1 очко навыка",
+        "type": "point",
+        "int": 1
+    },
+    {
+        "id": "hp_1",
+        "name": "Закалённое тело",
+        "description": "+10 HP",
+        "type": "stats",
+        "bonus": {
+            "hp": 10
+        }
+    },
+    {
+        "id": "energy_1",
+        "name": "Выносливость",
+        "description": "+20 энергии",
+        "type": "stats",
+        "bonus": {
+            "energy": 20
+        }
+    },
+    {
+        "id": "armor_1",
+        "name": "Толстая кожа",
+        "description": "+5 брони",
+        "type": "stats",
+        "bonus": {
+            "armor": 5
+        }
+    }
+]

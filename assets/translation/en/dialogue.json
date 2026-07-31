@@ -1,0 +1,30 @@
+{
+  "free_chat_more": "Tell me more",
+  "fatum_tuum": {
+    "who_are_you":  "Who are you?",
+    "you_know_me":  "You know me.",
+    "ends_here":    "It ends here.",
+    "what_oath":    "What oath?",
+    "wont_stop":    "You won't stop me.",
+    "enough_words": "Enough words.",
+    "you_are_me":   "You're me?",
+    "not_talking":  "I didn't come to talk."
+  },
+  "one_lost": {
+    "free_chat_more":       "Tell me more",
+    "where_i":              "Where am I?",
+    "player_choice":        "...Or just drifting?",
+    "player_choice_repeat": "...Or drifting again?",
+    "wandering":            "Just walking. Don't know where.",
+    "why_again":            "WHY AM I HERE AGAIN?!",
+    "exit":                 "Looking for a way out.",
+    "rude":                 "None of your business.",
+    "attack":               "⚔️ Attack",
+    "leave":                "Leave"
+  },
+  "man_bandages": {
+    "see_shop": "What are you selling?",
+    "chat":     "Let's talk.",
+    "leave":    "I don't need anything."
+  }
+}

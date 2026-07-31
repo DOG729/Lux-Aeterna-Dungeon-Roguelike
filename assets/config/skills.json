@@ -1,0 +1,41 @@
+{
+  "zoom": {
+    "min":     0.6,
+    "max":     1.2,
+    "initial": 1.0,
+    "step":    1.1
+  },
+
+  "pan_pad":            100,
+  "pawn_size":          120,
+  "label_offset":       80,
+  "center_ring_radius": 22,
+
+  "line_width":    2.5,
+  "line_or_dash":  "6 4",
+  "label_font_size": 11,
+
+  "node_radius": {
+    "point":   18,
+    "notable": 32
+  },
+
+  "color": {
+    "center_ring":  "#3344aa",
+    "line_learned": "#7a5f20",
+
+    "battle": {
+      "text": "#721B1B",
+      "line": "#330607",
+      "ring": "#330607"
+    },
+    "survival": {
+      "text": "#2A548E",
+      "line": "#1B3D68"
+    },
+    "magic": {
+      "text": "#629148",
+      "line": "#3B552A"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "gold":               { "name": "Золото" },
+    "key_door_inventory": { "name": "Ключ от двери" },
+    "sword_wood":         { "name": "Деревянный меч" },
+    "sword_iron":         { "name": "Железный меч" },
+    "shield_wood":        { "name": "Деревянный щит" },
+    "amulet_hp":          { "name": "Амулет жизни" },
+    "ring_energy":        { "name": "Кольцо энергии" },
+    "elixir_healing":     { "name": "Эликсир исцеления" },
+    "elixir_energy":      { "name": "Эликсир энергии" }
+}

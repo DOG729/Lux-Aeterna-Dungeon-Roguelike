@@ -1,0 +1,114 @@
+[
+    {
+        "id":"gold",
+        "image": "gold.png",
+        "name":"Золото",
+        "function":"gold",
+        "inventory": true,
+        "equip": false
+    },
+    {
+        "id":"key_door_inventory",
+        "image": "key.png",
+        "name":"Ключ от двери",
+        "function":"key_door",
+        "object_use":"door1",
+        "use_destroy":true,
+        "inventory": true,
+        "equip": false,
+        "inventorybar":true
+    },
+    {
+        "id":"sword_wood",
+        "level":1,
+        "image": "sword_wood.png",
+        "name":"Деревянный меч",
+        "inventory": true,
+        "equip": "weapon",
+        "price_sell": 3,
+        "price_buy": 15,
+        "stats": { "ability:attack:int": 3 }
+    },
+    {
+        "id":"sword_iron",
+        "level":2,
+        "image": "sword_iron.png",
+        "name":"Железный меч",
+        "inventory": true,
+        "equip": "weapon",
+        "price_sell": 25,
+        "price_buy": 100,
+        "stats": { "ability:attack:int": 12 }
+    },
+    {
+        "id":"shield_wood",
+        "level":1,
+        "image": "shield_wood.png",
+        "name":"Деревянный щит",
+        "inventory": true,
+        "equip": "shield",
+        "price_sell": 5,
+        "stats": { "ability:defend:int": 8 }
+    },
+    {
+        "id":"shield_iron",
+        "level":1,
+        "image": "shield_iron.png",
+        "name":"Железный щит",
+        "inventory": true,
+        "equip": "shield",
+        "price_sell": 15,
+        "price_buy": 85,
+        "stats": { "ability:defend:int": 20 }
+    },
+    {
+        "id":"amulet_hp",
+        "level":1,
+        "image": "amulet_hp.png",
+        "name":"Амулет жизни",
+        "inventory": true,
+        "equip": "amulet",
+        "price_sell": 10,
+        "stats": { "player:max_hp": 25 }
+    },
+    {
+        "id":"ring_energy",
+        "level":1,
+        "image": "ring_energy.png",
+        "name":"Кольцо энергии",
+        "inventory": true, 
+        "equip": "ring",
+        "price_sell": 8,
+        "price_buy": 25,
+        "stats": { "player:max_energy": 30 }
+    },
+    {
+        "id":"elixir_healing",
+        "level":1,
+        "image": "elixir_healing_a.webp",
+        "name":"Эликсир исцеления",
+        "inventory": true,
+        "equip": false,
+        "price_sell": 5,
+        "price_buy": 13,
+        "use": {
+            "out_combat": { "hp": 55 },
+            "in_combat":  { "hp": 50 }
+        },
+        "inventorybar":true
+    },
+    {
+        "id":"elixir_energy",
+        "level":1,
+        "image": "elixir_energy.png",
+        "name":"Эликсир энергии",
+        "price_sell": 1,
+        "price_buy": 10,
+        "inventory": true,
+        "equip": false,
+        "use": {
+            "in_combat": { "energy": 50 }
+        },
+        "inventorybar":true
+    }
+]

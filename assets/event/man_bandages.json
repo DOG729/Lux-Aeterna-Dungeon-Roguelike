@@ -1,0 +1,18 @@
+{
+  "man_bandages_first_meet": {
+    "_comment": "Первая встреча с Торговцем в бинтах. Хук: on_first_encounter.",
+    "once": true,
+    "actions": [
+      { "sound": "sound_trader_appear" },
+      { "dialogue": "man_bandages_intro" }
+    ]
+  },
+
+  "man_bandages_open": {
+    "_comment": "Второй визит к Торговцу — один раз показывает диалог, дальше сразу магазин. Хук: on_encounter.",
+    "once": true,
+    "actions": [
+      { "dialogue": "man_bandages_intro" }
+    ]
+  }
+}

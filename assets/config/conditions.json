@@ -1,0 +1,41 @@
+[
+    {
+        "id": "berserk",
+        "_comment": "Игрок убил более 80% встреченных врагов (при минимуме 10 встреч)",
+        "tags": ["player", "status"],
+        "if": [
+            ["session:player:mobsEncountered", ">", 10],
+            ["session:player:kills", ">", ["session:player:mobsEncountered", "*", 0.8]]
+        ],
+        "int": 1
+    },
+    {
+        "id": "karma_good",
+        "_comment": "Хорошая карма: пощадил >= 50% врагов. При минимуме 10 встреч.",
+        "tags": ["player", "karma"],
+        "if": [
+            ["session:player:mobsEncountered", ">", 10],
+            ["session:player:peacefulWins", ">=", ["session:player:mobsEncountered", "*", 0.5]]
+        ],
+        "int": 1
+    },
+    {
+        "id": "karma_bad",
+        "_comment": "Плохая карма: пощадил < 20% врагов (почти никого). При минимуме 10 встреч.",
+        "tags": ["player", "karma"],
+        "if": [
+            ["session:player:mobsEncountered", ">", 10],
+            ["session:player:peacefulWins", "<", ["session:player:mobsEncountered", "*", 0.2]]
+        ],
+        "int": 1
+    },
+    {
+        "id": "used_magic",
+        "_comment": "Игрок использовал магию Де Несес хотя бы один раз. Закрывает путь к концовке Освобождение.",
+        "tags": ["player", "status"],
+        "if": [
+            ["session:player:magicUsed", ">", 0]
+        ],
+        "int": 1
+    }
+]

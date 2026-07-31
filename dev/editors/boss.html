@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Boss Editor</title>
+<link rel="stylesheet" href="/dev_css/shared.css">
+</head>
+<body>
+<script src="/dev_js/nav.js"></script>
+<div class="editor-layout">
+  <div class="list-panel">
+    <div class="list-header">
+      <span>BOSSES</span>
+      <button class="btn green" id="btn-new" style="font-size:10px;padding:2px 8px">+ New</button>
+    </div>
+    <div style="padding:4px 6px;border-bottom:1px solid var(--border)">
+      <input type="text" id="list-search" class="list-search" placeholder="Filter…">
+    </div>
+    <div class="list-items" id="list-items"></div>
+  </div>
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-empty">← Select a boss</div>
+  </div>
+</div>
+<script>window.EDITOR_TYPE = 'boss';</script>
+<script type="module" src="/dev_js/entity_editor.js"></script>
+</body>
+</html>

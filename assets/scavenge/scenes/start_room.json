@@ -1,0 +1,67 @@
+{
+  "id": "start_room",
+  "image": "start_room.jpg",
+  "help_text": "Мне нужно осмотреться",
+  "script": [
+    {
+      "if": [["account:gamesStarted", ">=", 2],["account:maxFloor", ">", 1]],
+      "remove": ["sword_wall"],
+      "complete": ["find_sword"]
+    }
+  ], 
+  "tasks": {
+    "find_sword": {
+      "text": "Мне нужно найти свой меч",
+      "text_key": "scavenge.start_room.find_sword",
+      "trigger": "sword_wall",
+      "activation": [
+        "exit"
+      ]
+    },
+    "exit": {
+      "start_active": false,
+      "text": "Мне нужно выбраться отсюда",
+      "text_key": "scavenge.start_room.exit",
+      "trigger": "exit_corridor"
+    }
+  },
+  "sound": "sound_start_room",
+  "objects": [
+    {
+      "id": "sword_wall",
+      "type": "item",
+      "image": "objects/sword_player_start_room.png",
+      "x": 2117,
+      "y": 109,
+      "w": 400,
+      "h": 680,
+      "chance": 1,
+      "remove": true,
+      "add_item": []
+    },
+    {
+      "id": "pentagram_floor",
+      "type": "examine",
+      "x": 1069,
+      "y": 551,
+      "w": 544,
+      "h": 515,
+      "text": "Странная аура у этой пентаграммы. Она тянет к себе, словно обещает что-то.",
+      "text_key": "scavenge.start_room.pentagram"
+    },
+    {
+      "id": "exit_corridor",
+      "type": "exit",
+      "x": 1661,
+      "y": 35,
+      "w": 403,
+      "h": 480,
+      "condition": {
+        "required_removed": [
+          "sword_wall"
+        ]
+      },
+      "condition_fail_text": "Что-то не даёт уйти. Ощущение, что здесь осталось незавершённое дело."
+    }
+  ]
+}

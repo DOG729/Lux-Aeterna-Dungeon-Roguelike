@@ -1,0 +1,90 @@
+{
+    "id": "player",
+    "hp": 100,
+    "energy": 100,
+    "stats": {
+        "armor": 0,
+        "magical_armor": 0,
+        "avoidance": 0,
+        "physique": 0,
+        "power": 0,
+        "agility": 0,
+        "intelligence": 0
+    }, 
+    "imags": {
+        "default":"player/Player_animated.webp",
+        "defend": "player/Player_defend.png",
+        "attack":"player/Player_attack.png",
+        "dead": "player/Player_dead.png",
+        "magical_attack": "player/Player_magical_attack.png",
+        "effects": {
+            "heal": "player/effects/heal.png",
+            "attack": {
+                "crit": "player/effects/crit.png"
+            }
+        },
+        "replacement": [
+            {
+                "if": ["condition:berserk"],
+                "imags": {
+                    "default":"player/Player_berserker_animated.webp", 
+                    "defend": "player/Player_defend_berserker.png",
+                    "attack":"player/Player_attack_berserker.png",
+                    "dead": "player/Player_dead_berserker.png"
+                }
+            }
+        ],
+        "layers": [
+            {
+                "if": ["equip:sword_iron"],
+                "add": "player/layers/sword_iron.png"
+            }
+        ]
+    },
+    "sound": {
+        "attack": {
+            "hit":  ["ui/sword/1.mp3", "ui/sword/2.mp3", "ui/sword/3.mp3"],
+            "crit": "ui/sword/critical/1.mp3"
+        },
+        "heal": "ui/confirm.mp3"
+    }, 
+    "pawn": "player/pawn.png",
+    "function": {
+        "attack": {
+            "int": 20,
+            "chance_critical":0.05,
+            "multiplier_critical":0.3,
+            "energy_cost":20,
+            "action": true
+        },
+        "defend": {
+            "int": 40,
+            "energy_cost":15,
+            "action": true
+        },
+        "magical_defend": {
+            "int": 40,
+            "energy_cost":10,
+            "action": false
+        },
+        "magical_attack": {
+            "int": 40,
+            "chance_critical":0.01,
+            "multiplier_critical":0.3,
+            "energy_cost":40,
+            "loop": 3,
+            "action": false
+        },
+        "wait": {
+            "int": 25,
+            "action": true
+        },
+        "heal": {
+            "int": 25,
+            "energy_cost":20,
+            "action": true,
+            "loop": 3
+        }
+
+    }
+}

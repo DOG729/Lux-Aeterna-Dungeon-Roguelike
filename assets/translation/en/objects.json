@@ -1,0 +1,5 @@
+{
+    "door1":     { "name": "Door" },
+    "key_door1": { "name": "Door Key" },
+    "chest_1":   { "name": "Chest" }
+}

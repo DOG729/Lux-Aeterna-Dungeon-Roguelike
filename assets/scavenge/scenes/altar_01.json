@@ -1,0 +1,88 @@
+{
+  "id": "altar_01",
+  "name": "Алтарь",
+  "image": "altar_01.jpg",
+  "sound": null,
+  "help_text": "Здесь что-то притягивает взгляд...",
+  "tasks": {
+    "touch_altar": {
+      "text": "Коснитесь артефакта на алтаре",
+      "trigger": "point_1",
+      "start_active": true
+    }
+  },
+  "script": [
+    {
+      "if": [
+        "achievement:point_1"
+      ],
+      "remove": [
+        "point_1"
+      ],
+      "complete": [
+        "point_1"
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "exit_mqzeo16c",
+      "type": "exit",
+      "x": 698,
+      "y": 820,
+      "w": 994,
+      "h": 106,
+      "condition": {
+        "required_removed": []
+      },
+      "condition_fail_text": ""
+    },
+    {
+      "id": "point_1",
+      "type": "item",
+      "x": 989,
+      "y": 26,
+      "w": 463,
+      "h": 436,
+      "chance": 1,
+      "remove": true,
+      "image": "objects/altar_active.png",
+      "hint": "Прикоснуться к артефакту",
+      "use": {
+        "text": "Чувствую как какая-то сила проникает в меня...",
+        "text_key": "point_1_use",
+        "grant_achievement": "point_1"
+      }
+    },
+    {
+      "id": "examine_altar_01",
+      "type": "examine",
+      "x": 991,
+      "y": 393,
+      "w": 451,
+      "h": 93,
+      "text": "Странный алтарь..."
+    },
+    {
+      "id": "return_altar_01",
+      "if": [
+        "achievement:point_1"
+      ],
+      "type": "examine",
+      "x": 1009,
+      "y": 49,
+      "w": 423,
+      "h": 334,
+      "text": "В прошлый раз когда я был здесь, я почувствовал как странная сила проникла в меня, я будто стал сильнее... Я будто стал ближе к Де Несес"
+    },
+    {
+      "id": "examine_mr6e7md1",
+      "type": "examine",
+      "x": 681,
+      "y": 597,
+      "w": 138,
+      "h": 138,
+      "text": "I've never seen such strange skulls before... why is it so big..."
+    }
+  ]
+}

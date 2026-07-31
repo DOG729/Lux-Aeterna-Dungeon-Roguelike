@@ -1,0 +1,21 @@
+{
+    "before_combat": {
+        "default":           "Неожиданная встреча с {mob_name}.",
+        "narrative_berserk": "{mob_name} шагнул из тьмы — и на миг замер. От тебя разит смертью.",
+        "narrative_wounded": "{mob_name} увидел твои раны и увидел в этом шанс."
+    },
+    "after_combat": {
+        "default": "{mob_name} испустил последний дух."
+    },
+    "after_defeat": {
+        "default": "Вы испустили последний дух…"
+    },
+    "npc_trader": {
+        "default":           "Вы встретили {npc_name}.",
+        "narrative_berserk": "{npc_name} торговец, очень недовольно посмотрел на тебя."
+    },
+    "npc_other": {
+        "default":           "Вы встретили {npc_name}.",
+        "narrative_berserk": "{npc_name} испуганно посмотрел на тебя."
+    }
+}

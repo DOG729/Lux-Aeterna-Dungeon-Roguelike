@@ -1,0 +1,82 @@
+{
+  "appearance": {
+    "zoom": { "min": 0.94, "max": 1.06 },
+    "blurPx": { "min": 0, "max": 0.65 },
+    "opacity": { "min": 0.48, "max": 0.92 },
+    "opacityEnd": { "min": 0.08, "max": 0.16 }
+  },
+  "items": [
+    {
+      "file": "small_fraction_sand_2_80x150.png",
+      "mode": "sand",
+      "speed": 0.88,
+      "spin": false, 
+      "appearance": { "blurPx": { "min": 0, "max": 0 } }
+    },
+    {
+      "file": "small_fraction_sand_80x150.png",
+      "mode": "sand",
+      "speed": 0.88,
+      "spin": false,
+      "appearance": { "blurPx": { "min": 0, "max": 0 } }
+    },
+    {
+      "file": "stones_20x50.png",
+      "mode": "sand",
+      "speed": 1.3,
+      "spin": false, 
+      "appearance": { "blurPx": { "min": 0, "max": 0 } } 
+    },
+    {
+      "file": "stones_2_40x100.png",
+      "mode": "sand",
+      "speed": 0.95,
+      "spin": false,
+      "appearance": { "blurPx": { "min": 0, "max": 0 } }
+    },
+    {
+      "file": "stones_3_40x100.png",
+      "mode": "sand",
+      "speed": 0.95,
+      "spin": false,
+      "appearance": { "blurPx": { "min": 0, "max": 0 } }
+    },
+    {
+      "file": "stones_40x100.png",
+      "mode": "sand",
+      "speed": 0.95,
+      "spin": false,
+      "appearance": { "blurPx": { "min": 0, "max": 0 } }
+    },
+    {
+      "file": "big_stone_38x38.png",
+      "mode": "boulder",
+      "speed": 1.45,
+      "spin": true
+    },
+    {
+      "file": "big_stone2_38x38.png",
+      "mode": "boulder",
+      "speed": 1.4,
+      "spin": true
+    },
+    {
+      "file": "big_stone3_38x38.png",
+      "mode": "boulder",
+      "speed": 1.4,
+      "spin": false
+    },
+    {
+      "file": "big_stone4_38x38.png",
+      "mode": "boulder",
+      "speed": 1.4,
+      "spin": true
+    },
+    {
+      "file": "big_stones_1_38x38.png",
+      "mode": "boulder",
+      "speed": 2.35,
+      "spin": false
+    }
+  ]
+}

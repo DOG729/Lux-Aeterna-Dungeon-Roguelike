@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Dev Editor Hub</title>
+<link rel="stylesheet" href="/dev_css/shared.css">
+<style>
+.main {
+  width: 100%;
+}
+.hub { display: flex; flex: 1; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 40px; }
+.hub-card { background: var(--bg2); border: 1px solid var(--border); padding: 28px 36px; cursor: pointer; text-decoration: none; color: var(--text); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: border-color .15s, background .15s; min-width: 160px; }
+.hub-card:hover { border-color: var(--accent); background: var(--bg3); }
+.hub-card .icon { font-size: 36px; }
+.hub-card .label { font-size: 13px; letter-spacing: 1px; }
+.hub-card .sub   { font-size: 10px; color: var(--muted); }
+.footer {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<script src="/dev_js/nav.js"></script>
+<div class="main">
+  <div class="hub">
+    <a class="hub-card" href="/map">
+      <div class="icon">🗺</div>
+      <div class="label">MAP</div>
+      <div class="sub">Map constructor</div>
+    </a>
+    <a class="hub-card" href="/editors/mob.html">
+      <div class="icon">👹</div>
+      <div class="label">MOBS</div>
+      <div class="sub">Mobs editor</div>
+    </a>
+    <a class="hub-card" href="/editors/boss.html">
+      <div class="icon">💀</div>
+      <div class="label">BOSSES</div>
+      <div class="sub">Bosses editor</div>
+    </a>
+    <a class="hub-card" href="/editors/npc.html">
+      <div class="icon">🧑</div>
+      <div class="label">NPCs</div>
+      <div class="sub">NPCs editor</div>
+    </a>
+    <a class="hub-card" href="/editors/item.html">
+      <div class="icon">⚔</div>
+      <div class="label">ITEMS</div>
+      <div class="sub">Items editor</div>
+    </a>
+    <a class="hub-card" href="/scavenge">
+      <div class="icon">👁</div>
+      <div class="label">SCAVENGE</div>
+      <div class="sub">Visual inspection of the room</div>
+    </a>
+    <a class="hub-card" href="/balance">
+      <div class="icon">⚖</div>
+      <div class="label">BALANCE</div>
+      <div class="sub">Stats, skills &amp; kill calculator</div>
+    </a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer-content">MIT license | © 2026 Dog729</div>
+</footer>
+</body>
+</html>

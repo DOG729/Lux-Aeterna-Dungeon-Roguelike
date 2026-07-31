@@ -1,0 +1,28 @@
+{
+  "bt_sharp_eye":      { "name": "Sharp Eye",              "description": "+2 to attack" },
+  "bt_precise_strike": { "name": "Precise Strike",         "description": "+3 to attack" },
+  "bt_steady_hand":    { "name": "Steady Hand",            "description": "+12 to attack" },
+  "bt_weak_spot":      { "name": "Weak Spot",              "description": "+3% crit chance" },
+  "bt_keen_eye":       { "name": "Keen Eye",               "description": "+3% crit chance" },
+  "bt_eagle_eye":      { "name": "Eagle Eye",              "description": "+10% crit chance" },
+  "bt_merciless":      { "name": "Merciless",              "description": "+15% crit damage" },
+  "bt_rage":           { "name": "Rage",                   "description": "+15% crit damage" },
+  "bt_berserk":        { "name": "Berserk",                "description": "+40% crit damage, +5% crit chance" },
+
+  "sv_endurance":      { "name": "Endurance",              "description": "+10 max HP" },
+  "sv_healthy_body":   { "name": "Healthy Body",           "description": "+10 max HP" },
+  "sv_healthy_spirit": { "name": "Healthy Spirit",         "description": "+15 max HP" },
+  "sv_iron_skin":      { "name": "Iron Skin",              "description": "+45 max HP" },
+  "sv_energy_reserve": { "name": "Energy Reserve",         "description": "+10 max energy" },
+  "sv_power_flow":     { "name": "Power Flow",             "description": "+15 max energy" },
+  "sv_power_pool":     { "name": "Power Pool",             "description": "+50 max energy" },
+  "sv_block":          { "name": "Block",                  "description": "+3 to defense" },
+  "sv_firm_shield":    { "name": "Firm Shield",            "description": "+3 to defense" },
+  "sv_unbreakable":    { "name": "Unbreakable",            "description": "+15 to defense, +25 max HP" },
+
+  "mg_magical_manifestation": { "name": "The Call of De Necessitate", "description": "Unlocks magical attack and magical defense" },
+  "mg_arcane_focus":          { "name": "Will of the Cursed",         "description": "+8 to magical attack" },
+  "mg_arcane_surge":          { "name": "Punishment of the Inevitable","description": "+20 to magical attack, +3% magical crit chance" },
+  "mg_arcane_shield":         { "name": "Shield of Ignorance",        "description": "+8 to magical defense" },
+  "mg_veil_of_magic":         { "name": "Veil of De Necessitate",     "description": "+20 to magical defense, +10 max HP" }
+}

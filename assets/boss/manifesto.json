@@ -1,0 +1,287 @@
+[
+    {
+        "id": "skeleton_golem",
+        "name": "Скелет-Голем",
+        "promt": {
+            "general": "В дальнем конце темного подземелья возвышается ужасающий Скелет-Голем: сросшиеся обломки костей, исписанные древними рунами, светящиеся в темноте.",
+            "soul": "Ритуал некромантии некогда связал разъятые останки сотен павших, сотворив невообразимую силу. В Скелете-Големе нет ни одного воспоминания, только власть Тьмы.",
+            "behavior": "Скелет-Голем не терпит вторжения в свои владения: атакует без предупреждения, его движения непредсказуемы и резки, он сокрушает препятствия силой.",
+            "communication_style": "Почти не издает звуков, лишь иногда гулко бормочет древние заклинания на неведомом языке: `*Гулкое эхо*: к-о-с-т-и... в-л-а-с-т-ь...`"
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} возник из густой тьмы, зал охватил холод и ощущение неминуемой гибели. (Внешний вид {mob_name}: гигантский силуэт из скрепленных костей, тлеющие руны на груди, в руках — огромный обломок меча)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "priority": 10,
+                    "key": "encounter_berserk_rage",
+                    "text": "{mob_name} вдруг взревел каким-то неестественным, скрежещущим голосом. Его одеяния и кости вспыхнули багровым сиянием — некромантская ярость овладела им!",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "priority": 5,
+                    "extension": true,
+                    "key": "encounter_weak_opponent",
+                    "text": "{mob_name} замечает твою слабость — руны на его черепе вспыхнули. Он поднимает тяжелую руку, намереваясь добить раненого.",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.95,
+            "energy": 0.95
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 1,
+                "chance": 0.5
+            }
+        ],
+        "style": {
+            "shadow_color": "#3E5B18",
+            "shadow_opacity": 0.3
+        },
+        "imags": {
+            "default": "skeleton_golem/skeleton_golem.webp",
+            "attack": "skeleton_golem/skeleton_golem_attack.png",
+            "dead": "skeleton_golem/skeleton_golem_dead.png",
+            "effects": {
+                "attack": {
+                    "hit": "skeleton_golem/effects/attack.png",
+                    "crit": "skeleton_golem/effects/attack.png"
+                }
+            }
+        },
+        "pawn": "skeleton_golem/pawn.png",
+        "level": [
+            "5"
+        ],
+        "count": 1,
+        "multiplier": {
+            "xp": 1.05,
+            "energy": 1.02,
+            "hp": 1.05,
+            "attack": 1.01
+        },
+        "xp": 120,
+        "hp": 100,
+        "energy": 100,
+        "stats": {
+            "armor": 5
+        },
+        "function": {
+            "attack": {
+                "int": 25,
+                "chance_critical": 0.4,
+                "multiplier_critical": 0.15,
+                "energy_cost": 20,
+                "action": true
+            },
+            "defend": {
+                "int": 140,
+                "action": true
+            },
+            "wait": {
+                "int": 25,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        },
+        "phase": [
+            {
+                "phase": 1,
+                "phase_name": "Rage",
+                "if": [
+                    "mob:hp",
+                    "<",
+                    [
+                        "mob:maxHp",
+                        "*",
+                        0.5
+                    ]
+                ],
+                "style": {
+                    "shadow_opacity": 0.4
+                },
+                "imags": {
+                    "attack": "skeleton_golem/skeleton_golem_attack.png"
+                },
+                "stats": {
+                    "armor": 15
+                },
+                "function": {
+                    "attack": {
+                        "int": 30,
+                        "chance_critical": 0.5,
+                        "multiplier_critical": 0.15,
+                        "energy_cost": 20,
+                        "action": true
+                    }
+                }
+            }
+        ]
+    }, 
+    {
+        "id": "fatum_tuum",
+        "name": "Фатум Туум",
+        "promt": {
+            "general": "Перед тобой возвышается титаническая фигура — в изломанных доспехах, с обезображенным лицом и потухшим взглядом, объятый мерцающей коллекцией потускневших рун — словно отражение героя, которым ты мог быть.",
+            "soul": "Это искорёженная душа самого героя, запечатанная ритуалами Лабирита. Боль, враждебность и фрагменты памяти о том, почему ты здесь, — всё смешано и искажено чужой злобой. Тени прошлого, эхо проклятой клятвы и чужая воля поставили тебя против самого себя.",
+            "behavior": "Фатум Туум движется с пугающей целеустремлённостью — будто выполняет чужую волю, но иногда его движения затормаживаются, словно он борется с невидимыми цепями. Иногда вспышка узнавания мелькает в пустых глазницах — и тут же исчезает под напором чёрной ярости.",
+            "communication_style": "Говорит резко, отрывисто — обрывки фраз и молитв, знакомых но искажённых. Иногда голос вдруг звучит человечески — но тут же уходит в рык или заглушается эхом: `*глухое эхо*: 'Не...могу...назад... Обещано... Верой и...'`"
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} материализуется из клубящегося мрака, как из кошмара наяву. Потухшие руны под его кожей вспыхивают бледным светом, цепи клятвы усиливаются, ты внезапно чувствуешь, что этот враг — отражение тебя самого. (Внешний вид: изломанные доспехи, пустые глазницы, в руке — осколок клинка, покрытый старыми молитвами.)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "priority": 10,
+                    "key": "encounter_berserk_rage",
+                    "text": "{mob_name} захлёстывает чудовищная ярость, его голос взрывается эхом нескольких голосов сразу, среди которых был бы и твой: \"Всё... ради… света! Всё... необходимо!\". Удары становятся неистовыми.",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "priority": 5,
+                    "extension": true,
+                    "key": "encounter_weak_opponent",
+                    "text": "{mob_name} останавливается на миг, будто распознаёт в тебе что-то знакомое. Затем медленно поднимает клинок, на мгновение его голос напоминает твой собственный: \"...прости...\" — и удар обрушивается на тебя.",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.98,
+            "energy": 0.98
+        },
+        "items": [
+            {
+                "id": "gold",
+                "count": 4,
+                "chance": 1
+            }
+        ],
+        "style": {
+            "shadow_color": "#42772C",
+            "shadow_opacity": 0.5
+        },
+        "imags": {
+            "default": "fatum_tuum/fatum_tuum_animated.webp",
+            "attack": "fatum_tuum/fatum_tuum_attack.png",
+            "dead": "fatum_tuum/fatum_tuum_dead.png",
+            "effects": {
+                "attack": {
+                    "hit": "fatum_tuum/effects/attack.png",
+                    "crit": "fatum_tuum/effects/attack.png"
+                }
+            }
+        },
+        "pawn": "fatum_tuum/pawn.png",
+        "level": [
+            "15"
+        ],
+        "count": 1,
+        "multiplier": {
+            "xp": 1,
+            "energy": 1,
+            "hp": 1,
+            "attack": 1
+        },
+        "xp": 420,
+        "hp": 220,
+        "energy": 120,
+        "stats": {
+            "armor": 22
+        },
+        "function": {
+            "attack": {
+                "int": 38,
+                "chance_critical": 0.5,
+                "multiplier_critical": 0.25,
+                "energy_cost": 28,
+                "action": true
+            },
+            "defend": {
+                "int": 200,
+                "action": true
+            },
+            "wait": {
+                "int": 35,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        },
+        "events": {
+            "on_encounter":    "fatum_tuum_encounter",
+            "on_target":       "fatum_tuum_taunt",
+            "on_death":        "fatum_tuum_death"
+        },
+        "phase": [
+            {
+                "phase": 1,
+                "phase_name": "Печать разлома",
+                "if": [
+                    "mob:hp",
+                    "<",
+                    [
+                        "mob:maxHp",
+                        "*",
+                        0.5
+                    ]
+                ],
+                "style": {
+                    "shadow_opacity": 0.7
+                },
+                "imags": {
+                    "attack": "fatum_tuum/fatum_tuum_attack.png"
+                },
+                "stats": {
+                    "armor": 35
+                },
+                "function": {
+                    "attack": {
+                        "int": 55,
+                        "chance_critical": 0.7,
+                        "multiplier_critical": 0.33,
+                        "energy_cost": 30,
+                        "action": true
+                    }
+                }
+            }
+        ]
+    }
+]

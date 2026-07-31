@@ -1,0 +1,11 @@
+{
+    "gold":               { "name": "Gold" },
+    "key_door_inventory": { "name": "Door Key" },
+    "sword_wood":         { "name": "Wooden Sword" },
+    "sword_iron":         { "name": "Iron Sword" },
+    "shield_wood":        { "name": "Wooden Shield" },
+    "amulet_hp":          { "name": "Life Amulet" },
+    "ring_energy":        { "name": "Energy Ring" },
+    "elixir_healing":     { "name": "Healing Elixir" },
+    "elixir_energy":      { "name": "Energy Elixir" }
+}

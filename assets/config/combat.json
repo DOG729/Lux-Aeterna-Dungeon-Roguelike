@@ -1,0 +1,9 @@
+{
+    "together": {
+        "delay_ms": 300,
+        "first_action": "mob",
+        "sequential": [
+            "attack:attack"
+        ]
+    }
+}

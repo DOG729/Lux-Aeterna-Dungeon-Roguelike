@@ -1,0 +1,92 @@
+{
+  "_doc": [
+    "Реестр медиа-ресурсов. Единая точка привязки ключей к файлам.",
+    "event.json ссылается сюда через поля: sound, music, video.",
+    "",
+    "─── Секции ──────────────────────────────────────────────────────────────────",
+    "",
+    "  sound  — короткие звуки и войсы (one-shot). Путь: /assets/sound/",
+    "  music  — фоновая музыка, лупы (looping/ambient). Путь: /assets/sound/music/",
+    "  video  — кат-сцены и ролики. Путь: /assets/video/",
+    "",
+    "─── Форматы значений (sound и music) ───────────────────────────────────────",
+    "",
+    "  null                        — тишина (заглушить / заготовка)",
+    "  'path/to/file.mp3'          — один файл",
+    "  ['path/1.mp3','path/2.mp3'] — случайный выбор из списка",
+    "  { src, volume }             — файл с переопределением громкости (0.0–2.0)",
+    "  { src, volume, loop }       — для music: loop: true включает зацикливание",
+    "",
+    "─── Формат значений (video) ─────────────────────────────────────────────────",
+    "",
+    "  null                        — заготовка (не воспроизводится)",
+    "  'path/to/file.mp4'          — один файл, skippable по умолчанию false",
+    "  { src, skippable }          — файл с флагом пропуска"
+  ], 
+
+  "sound": {
+    "_comment": "One-shot звуки: UI, атмосфера, войсы, эффекты. Путь: /assets/sound/",
+
+    "__UI__": "──────────────────────────────────────────",
+    "dungeon_move":          { "src": "ui/dungeon_room.mp3", "volume": 0.8 },
+    "dungeon_discover":      "ui/default_stub.mp3",
+    "dungeon_stairs":        "ui/default_stub.mp3",
+
+    "chest_open":            "ui/default_stub.mp3",
+    "door_unlock":           "ui/default_stub.mp3",
+    "item_pickup":           "ui/default_stub.mp3",
+    "item_pickup_key":       "ui/default_stub.mp3",
+
+    "item_equip":            "ui/default_stub.mp3",
+    "item_unequip":          "ui/default_stub.mp3",
+    "item_use":              "ui/default_stub.mp3",
+    "item_buy":              "ui/default_stub.mp3",
+    "item_sell":             "ui/default_stub.mp3",
+
+    "skill_hover":           "ui/default_stub.mp3",
+    "skill_learn":           "ui/default_stub.mp3",
+
+    "npc_open":              "ui/default_stub.mp3",
+    "level_up":              "ui/default_stub.mp3",
+    "save_game":             "ui/default_stub.mp3",
+
+    "npc_text_blips_default": { "src": "ui/text_blips_00001.mp3", "volume": 0.5 },
+
+    "combat_flee_success":   "ui/default_stub.mp3",
+    "combat_flee_fail":      "ui/default_stub.mp3",
+
+    "__NPC__": "──────────────────────────────────────────",
+    "sound_trader_appear":   null,
+
+    "__LOCATIONS__": "──────────────────────────────────────────",
+    "sound_door_boss_open":  null,
+    "sound_start_room":      "other/dark_start_room.mp3", 
+
+    "__BOSS_FATUM_TUUM__": "──────────────────────────────────────────",
+    "voice_fatum_taunt_good":    null,
+    "voice_fatum_taunt_bad":     null,
+    "voice_fatum_taunt_neutral": null
+  },
+
+  "music": {
+    "_comment": "Фоновая музыка. Путь: /assets/sound/music/",
+
+    "music_dungeon_ambient":     null,
+    "music_boss_approach":       null,
+    "music_boss_fatum_tuum":     null
+  },
+
+  "video": {
+    "_comment": "Кат-сцены и финальные ролики. Путь: /assets/video/",
+
+    "__BOSS_FATUM_TUUM__": "──────────────────────────────────────────",
+    "cutscene_fatum_enter_good":    null,
+    "cutscene_fatum_enter_bad":     null,
+    "cutscene_fatum_enter_neutral": null,
+
+    "__ENDINGS__": "──────────────────────────────────────────",
+    "cutscene_ending_liberation":   null,
+    "cutscene_ending_merge":        null,
+    "cutscene_ending_neutral":      null
+  }
+}

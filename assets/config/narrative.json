@@ -1,0 +1,68 @@
+{
+    "narrative": true,
+    "beffore_combat": {
+        "active": true,
+        "is_ai": true,
+        "path_promt_narrator": "assets/translation/{lang}/promts/narrator_combat.md",
+        "default": "Неожиданная встреча с {mob_name}.",
+        "variants": [
+            {
+                "key": "narrative_berserk",
+                "if": ["condition:berserk"],
+                "text": "{mob_name} шагнул из тьмы — и на миг замер. От тебя разит смертью.",
+                "is_ai": true
+            },
+            {
+                "key": "narrative_wounded",
+                "if": [["player:hp", "<", ["player:maxHp", "*", 0.3]]],
+                "text": "{mob_name} увидел твои раны и увидел в этом шанс.",
+                "is_ai": true
+            }
+        ]
+    },
+    "after_combat": {
+        "path_promt_narrator": "assets/translation/{lang}/promts/narrator_combat.md",
+        "active": true,
+        "is_ai": false,
+        "default": "{mob_name} испустил последний дух."
+    },
+    "after_defeat": {
+        "active": true,
+        "is_ai": false,
+        "default": "Вы испустили последний дух…"
+    },
+    "NPC": {
+        "active": true,
+        "is_ai": true,
+        "trader":{
+            "active": true,
+            "is_ai": true,
+            "path_promt_narrator": "assets/translation/{lang}/promts/narrator_npc.md",
+            "path_promt_narrator_combat": "assets/translation/{lang}/promts/narrator_npc_combat.md",
+            "default": "Вы встретили {npc_name}.",
+            "variants": [
+                {
+                    "key": "narrative_berserk",
+                    "if": ["condition:berserk"],
+                    "text": "{npc_name} Торговец, очень недовольно посмотрел на тебя.",
+                    "is_ai": true
+                }
+            ]
+        },
+        "other": {
+            "active": true,
+            "is_ai": true,
+            "path_promt_narrator": "assets/translation/{lang}/promts/narrator_npc.md",
+            "path_promt_narrator_combat": "assets/translation/{lang}/promts/narrator_npc_combat.md",
+            "default": "Вы встретили {npc_name}.",
+            "variants": [
+                {
+                    "key": "narrative_berserk",
+                    "if": ["condition:berserk"],
+                    "text": "{npc_name} Испуганно посмотрел на тебя.",
+                    "is_ai": true
+                }
+            ]
+        }
+    }
+}

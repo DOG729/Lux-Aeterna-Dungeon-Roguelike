@@ -1,0 +1,29 @@
+{
+  "_doc": [
+    "Реестр лор-тем для условного поиска по лору в NPC-чате (см. knows_lore в assets/npc/*.json).",
+    "",
+    "key          — тема, тот же ключ что в knows_lore NPC и в JSON-ответе модели (lore_topic).",
+    "path         — имя файла относительно assets/translation/{lang}/promts/lore/topics/.",
+    "               Резолвится через loadLangFile() — язык подставляется автоматически,",
+    "               с фолбэком на CORE_LANG если перевода для текущего языка нет.",
+    "description  — короткое описание ДЛЯ МОДЕЛИ (не для игрока): что внутри этой темы.",
+    "               Модель видит только key+description при решении, нужна ли тема —",
+    "               содержимое файла подмешивается в промт только если тема выбрана.",
+    "",
+    "NPC получает доступ к теме через knows_lore: [\"key\", ...] в своём манифесте.",
+    "Движок: server/engine/npc.js (npcSystempromt/lookupLore), server/routes/npc.js (/api/npc/chat)."
+  ],
+
+  "one_lost_history": {
+    "path": "topics/one_lost_history.md",
+    "description": "История о тебе (Потерянный) - можно использовать если прозвчит имя (Альбрус)"
+  },
+  "god_denecess": {
+    "path": "topics/god_denecess.md",
+    "description": "Бог ордена De Necessitate: кто он, доктрина ордена, природа его магии"
+  },
+  "lux_aeterna": {
+    "path": "topics/lux_aeterna.md",
+    "description": "Орден Lux Aeterna: публичная роль, структура, паладины и клятва посвящения"
+  }
+} 

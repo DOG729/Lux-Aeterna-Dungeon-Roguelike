@@ -1,0 +1,92 @@
+{
+  "man_bandages_intro": {
+    "_comment": [
+      "Первый разговор с Торговцем в бинтах.",
+      "Если берсерк — другой стартовый узел (entry).",
+      "Игрок выбирает: торговля, поговорить, уйти."
+    ],
+    "trigger": "on_npc_open",
+    "once": true,
+    "skippable": true,
+    "entry": [
+      {
+        "if": ["condition:berserk"],
+        "node": "open_berserk"
+      },
+      {
+        "if": [],
+        "node": "open_normal"
+      }
+    ],
+    "script": [
+      {
+        "id": "open_normal",
+        "speaker": "npc",
+        "is_ai": false,
+        "text_key": "npc.man_bandages.dialogue_intro_normal",
+        "text": "Есть чем помочь путнику. Золото берёшь с собой в могилу — лучше потрать здесь.",
+        "next": "player_choice"
+      },
+      {
+        "id": "open_berserk",
+        "speaker": "npc",
+        "is_ai": false,
+        "text_key": "npc.man_bandages.dialogue_intro_berserk",
+        "text": "...тихо. Тихо. Я не враг. Посмотри — товары. Просто товары.",
+        "next": "player_choice"
+      },
+      {
+        "id": "player_choice",
+        "speaker": "player",
+        "options": [
+          {
+            "text": "Что продаёшь?",
+            "text_key": "dialogue.man_bandages.see_shop",
+            "if": [],
+            "next": "trader_to_shop"
+          },
+          {
+            "text": "Поговорим.",
+            "text_key": "dialogue.man_bandages.chat",
+            "if": [],
+            "next": "trader_to_chat"
+          },
+          {
+            "text": "Мне ничего не нужно.",
+            "text_key": "dialogue.man_bandages.leave",
+            "if": [],
+            "next": "trader_leave"
+          }
+        ]
+      },
+      {
+        "id": "trader_to_shop",
+        "speaker": "npc",
+        "is_ai": false,
+        "text_key": "npc.man_bandages.dialogue_shop_reply",
+        "text": "Смотри сам.",
+        "next": null,
+        "ends_with": "shop"
+      },
+      {
+        "id": "trader_to_chat",
+        "speaker": "npc",
+        "is_ai": true,
+        "dream_ai": {"max_change": 1},
+        "ai_hint": "Игрок хочет поговорить, не покупать. Нейтрально, немного загадочно.",
+        "text": "Редкость здесь — собеседник.",
+        "next": null,
+        "ends_with": "free_chat"
+      },
+      {
+        "id": "trader_leave",
+        "speaker": "npc",
+        "is_ai": false,
+        "text_key": "npc.man_bandages.dialogue_leave_reply",
+        "text": "...как знаешь.",
+        "next": null,
+        "ends_with": "close"
+      }
+    ]
+  }
+}

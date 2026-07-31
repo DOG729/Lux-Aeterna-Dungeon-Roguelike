@@ -1,0 +1,28 @@
+{
+  "bt_sharp_eye":      { "name": "Острый взгляд",          "description": "+2 к атаке" },
+  "bt_precise_strike": { "name": "Точный удар",             "description": "+3 к атаке" },
+  "bt_steady_hand":    { "name": "Твёрдая рука",            "description": "+12 к атаке" },
+  "bt_weak_spot":      { "name": "Слабое место",            "description": "+3% шанс крита" },
+  "bt_keen_eye":       { "name": "Острый взор",             "description": "+3% шанс крита" },
+  "bt_eagle_eye":      { "name": "Орлиный глаз",            "description": "+10% шанс крита" },
+  "bt_merciless":      { "name": "Беспощадность",           "description": "+15% к урону крита" },
+  "bt_rage":           { "name": "Ярость",                  "description": "+15% к урону крита" },
+  "bt_berserk":        { "name": "Берсерк",                 "description": "+40% к урону крита, +5% шанс крита" },
+
+  "sv_endurance":      { "name": "Стойкость",               "description": "+10 к макс. HP" },
+  "sv_healthy_body":   { "name": "Здоровое тело",           "description": "+10 к макс. HP" },
+  "sv_healthy_spirit": { "name": "Здоровый дух",            "description": "+15 к макс. HP" },
+  "sv_iron_skin":      { "name": "Железная кожа",           "description": "+45 к макс. HP" },
+  "sv_energy_reserve": { "name": "Энергетический резерв",   "description": "+10 к макс. энергии" },
+  "sv_power_flow":     { "name": "Поток силы",              "description": "+15 к макс. энергии" },
+  "sv_power_pool":     { "name": "Резервуар силы",          "description": "+50 к макс. энергии" },
+  "sv_block":          { "name": "Блокировка",              "description": "+3 к защите" },
+  "sv_firm_shield":    { "name": "Твёрдый щит",             "description": "+3 к защите" },
+  "sv_unbreakable":    { "name": "Несокрушимый",            "description": "+15 к защите, +25 к макс. HP" },
+
+  "mg_magical_manifestation": { "name": "Зов Де Несес",         "description": "Открывает магическую атаку и магическую защиту" },
+  "mg_arcane_focus":          { "name": "Воля проклятого",       "description": "+8 к маг. атаке" },
+  "mg_arcane_surge":          { "name": "Кара неизбежного",      "description": "+20 к маг. атаке, +3% шанс маг. крита" },
+  "mg_arcane_shield":         { "name": "Щит неведения",         "description": "+8 к маг. защите" },
+  "mg_veil_of_magic":         { "name": "Пелена Де Несес",       "description": "+20 к маг. защите, +10 к макс. HP" }
+}

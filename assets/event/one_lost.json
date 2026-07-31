@@ -1,0 +1,17 @@
+{
+  "one_lost_first_meet": {
+    "_comment": "Первая встреча с Потерянным. Хук: on_first_encounter.",
+    "once": true,
+    "actions": [
+      { "dialogue": "one_lost_intro" }
+    ]
+  },
+
+  "one_lost_open": {
+    "_comment": "Повторное открытие Потерянного (свободный чат). Хук: on_encounter.",
+    "once": false,
+    "actions": [
+      { "dialogue": "one_lost_intro" }
+    ]
+  }
+}

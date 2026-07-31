@@ -1,0 +1,313 @@
+{
+  "battle": [
+    {
+      "id": "bt_sharp_eye",
+      "type": "point",
+      "name": "Острый взгляд",
+      "description": "+2 к атаке",
+      "uses_point": 1,
+      "requires": [],
+      "position": { "x": 210, "y": 40 },
+      "function": { "mode": [
+        { "connect": "ability:attack:int", "value": 2 }
+      ]}
+    },
+    {
+      "id": "bt_precise_strike",
+      "type": "point",
+      "name": "Точный удар",
+      "description": "+3 к атаке",
+      "uses_point": 1,
+      "requires_or": [["magic:mg_arcane_focus"], ["bt_sharp_eye"]],
+      "position": { "x": 70, "y": 140 },
+      "function": { "mode": [
+        { "connect": "ability:attack:int", "value": 3 }
+      ]}
+    },
+    {
+      "id": "bt_steady_hand",
+      "type": "notables",
+      "name": "Твёрдая рука",
+      "description": "+12 к атаке",
+      "uses_point": 3,
+      "requires": ["bt_precise_strike"],
+      "position": { "x": 70, "y": 270 },
+      "images": { "active": "attack_10.png", "disabled": "attack_10_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:attack:int", "value": 12 }
+      ]}
+    },
+    {
+      "id": "bt_weak_spot",
+      "type": "point",
+      "name": "Слабое место",
+      "description": "+3% шанс крита",
+      "uses_point": 1,
+      "requires": ["bt_sharp_eye"],
+      "position": { "x": 210, "y": 140 },
+      "function": { "mode": [
+        { "connect": "ability:attack:chance_critical", "value": 0.03 }
+      ]}
+    },
+    {
+      "id": "bt_keen_eye",
+      "type": "point",
+      "name": "Острый взор",
+      "description": "+3% шанс крита",
+      "uses_point": 1,
+      "requires": ["bt_weak_spot"],
+      "position": { "x": 210, "y": 240 },
+      "function": { "mode": [
+        { "connect": "ability:attack:chance_critical", "value": 0.03 }
+      ]}
+    },
+    {
+      "id": "bt_eagle_eye",
+      "type": "notables",
+      "name": "Орлиный глаз",
+      "description": "+10% шанс крита",
+      "uses_point": 2,
+      "requires": ["bt_keen_eye"],
+      "position": { "x": 210, "y": 400 },
+      "images": { "active": "ch_critical.png", "disabled": "ch_critical_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:attack:chance_critical", "value": 0.10 }
+      ]}
+    },
+    {
+      "id": "bt_merciless",
+      "type": "point",
+      "name": "Беспощадность",
+      "description": "+15% к урону крита",
+      "uses_point": 1,
+      "requires": [],
+      "requires_or": [["survival:sv_healthy_body"], ["bt_sharp_eye"]],
+      "position": { "x": 350, "y": 140 },
+      "function": { "mode": [
+        { "connect": "ability:attack:multiplier_critical", "value": 0.15 }
+      ]}
+    },
+    {
+      "id": "bt_rage",
+      "type": "point",
+      "name": "Ярость",
+      "description": "+15% к урону крита",
+      "uses_point": 1,
+      "requires": ["bt_merciless"],
+      "position": { "x": 350, "y": 240 },
+      "function": { "mode": [
+        { "connect": "ability:attack:multiplier_critical", "value": 0.15 }
+      ]}
+    },
+    {
+      "id": "bt_berserk",
+      "type": "notables",
+      "name": "Берсерк",
+      "description": "+40% к урону крита, +5% шанс крита",
+      "uses_point": 3,
+      "requires": ["bt_rage"],
+      "position": { "x": 350, "y": 370 },
+      "images": { "active": "m_critical.png", "disabled": "m_critical_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:attack:multiplier_critical", "value": 0.40 },
+        { "connect": "ability:attack:chance_critical",     "value": 0.05 }
+      ]}
+    }
+  ],
+
+  "survival": [
+    {
+      "id": "sv_endurance",
+      "type": "point",
+      "name": "Стойкость",
+      "description": "+10 к макс. HP",
+      "uses_point": 1,
+      "requires": [],
+      "position": { "x": 210, "y": 40 },
+      "function": { "mode": [
+        { "connect": "player:max_hp", "value": 10 }
+      ]}
+    },
+    {
+      "id": "sv_healthy_body",
+      "type": "point",
+      "name": "Здоровое тело",
+      "description": "+10 к макс. HP",
+      "uses_point": 1,
+      "requires": [],
+      "requires_or": [["battle:bt_merciless"], ["sv_endurance"]],
+      "position": { "x": 70, "y": 140 },
+      "function": { "mode": [
+        { "connect": "player:max_hp", "value": 10 }
+      ]}
+    },
+    {
+      "id": "sv_healthy_spirit",
+      "type": "point",
+      "name": "Здоровый дух",
+      "description": "+15 к макс. HP",
+      "uses_point": 1,
+      "requires": ["sv_healthy_body"],
+      "position": { "x": 70, "y": 240 },
+      "function": { "mode": [
+        { "connect": "player:max_hp", "value": 15 }
+      ]}
+    },
+    {
+      "id": "sv_iron_skin",
+      "type": "notables",
+      "name": "Железная кожа",
+      "description": "+45 к макс. HP",
+      "uses_point": 2,
+      "requires": ["sv_healthy_spirit"],
+      "position": { "x": 70, "y": 370 },
+      "images": { "active": "max_hp.png", "disabled": "max_hp_disabled.png" },
+      "function": { "mode": [
+        { "connect": "player:max_hp", "value": 45 }
+      ]}
+    },
+    {
+      "id": "sv_energy_reserve",
+      "type": "point",
+      "name": "Энергетический резерв",
+      "description": "+10 к макс. энергии",
+      "uses_point": 1,
+      "requires": ["sv_endurance"],
+      "position": { "x": 210, "y": 140 },
+      "function": { "mode": [
+        { "connect": "player:max_energy", "value": 10 }
+      ]}
+    },
+    {
+      "id": "sv_power_flow",
+      "type": "point",
+      "name": "Поток силы",
+      "description": "+15 к макс. энергии",
+      "uses_point": 1,
+      "requires": ["sv_energy_reserve"],
+      "position": { "x": 210, "y": 240 },
+      "function": { "mode": [
+        { "connect": "player:max_energy", "value": 15 }
+      ]}
+    },
+    {
+      "id": "sv_power_pool",
+      "type": "notables",
+      "name": "Резервуар силы",
+      "description": "+50 к макс. энергии",
+      "uses_point": 2,
+      "requires": ["sv_power_flow"],
+      "position": { "x": 210, "y": 400 },
+      "images": { "active": "max_energy.png", "disabled": "max_energy_disabled.png" },
+      "function": { "mode": [
+        { "connect": "player:max_energy", "value": 50 }
+      ]}
+    },
+    {
+      "id": "sv_block",
+      "type": "point",
+      "name": "Блокировка",
+      "description": "+5 к защите",
+      "uses_point": 1,
+      "requires_or": [["magic:mg_arcane_shield"], ["sv_endurance"]],
+      "position": { "x": 350, "y": 140 },
+      "function": { "mode": [
+        { "connect": "ability:defend:int", "value": 5 } 
+      ]}
+    },
+    {
+      "id": "sv_firm_shield",
+      "type": "point",
+      "name": "Твёрдый щит",
+      "description": "+8 к защите",
+      "uses_point": 1,
+      "requires": ["sv_block"],
+      "position": { "x": 350, "y": 240 },
+      "function": { "mode": [
+        { "connect": "ability:defend:int", "value": 8 }
+      ]}
+    },
+    {
+      "id": "sv_unbreakable",
+      "type": "notables",
+      "name": "Несокрушимый",
+      "description": "+15 к защите, +25 к макс. HP",
+      "uses_point": 3,
+      "requires": ["sv_firm_shield"],
+      "position": { "x": 350, "y": 370 },
+      "images": { "active": "max_defend.png", "disabled": "max_defend_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:defend:int", "value": 15 },
+        { "connect": "player:max_hp",      "value": 25 }
+      ]}
+    }
+  ],
+
+  "magic": [
+    {
+      "id": "mg_magical_manifestation",
+      "type": "notables",
+      "name": "Зов Де Несес",
+      "description": "Открывает магическую атаку и магическую защиту",
+      "uses_point": 3,
+      "requires": [],
+      "position": { "x": 210, "y": 80 },
+      "images": { "active": "tainted_magic.png", "disabled": "tainted_magic_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:magical_attack:int", "value": 5 }
+      ]} 
+    },
+    {
+      "id": "mg_arcane_focus",
+      "type": "point",
+      "name": "Воля проклятого",
+      "description": "+8 к маг. атаке",
+      "uses_point": 1,
+      "requires": ["mg_magical_manifestation"],
+      "position": { "x": 350, "y": 210 },
+      "function": { "mode": [
+        { "connect": "ability:magical_attack:int", "value": 8 }
+      ]}
+    },
+    {
+      "id": "mg_arcane_surge",
+      "type": "notables",
+      "name": "Кара неизбежного",
+      "description": "+20 к маг. атаке, +3% шанс маг. крита",
+      "uses_point": 2,
+      "requires": ["mg_arcane_focus"],
+      "position": { "x": 350, "y": 370 },
+      "images": { "active": "tainted_magic.png", "disabled": "tainted_magic_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:magical_attack:int",             "value": 20 },
+        { "connect": "ability:magical_attack:chance_critical", "value": 0.03 }
+      ]}
+    },
+    {
+      "id": "mg_arcane_shield",
+      "type": "point",
+      "name": "Щит неведения",
+      "description": "+8 к маг. защите",
+      "uses_point": 1,
+      "requires": ["mg_magical_manifestation"],
+      "position": { "x": 70, "y": 210 },
+      "function": { "mode": [
+        { "connect": "ability:magical_defend:int", "value": 8 }
+      ]}
+    },
+    {
+      "id": "mg_veil_of_magic",
+      "type": "notables",
+      "name": "Пелена Де Несес",
+      "description": "+20 к маг. защите, +10 к макс. HP",
+      "uses_point": 2,
+      "requires": ["mg_arcane_shield"],
+      "position": { "x": 70, "y": 370 },
+      "images": { "active": "tainted_magic.png", "disabled": "tainted_magic_disabled.png" },
+      "function": { "mode": [
+        { "connect": "ability:magical_defend:int", "value": 20 },
+        { "connect": "player:max_hp",              "value": 10 }
+      ]}
+    }
+  ]
+}

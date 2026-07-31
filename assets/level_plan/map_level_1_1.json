@@ -1,0 +1,146 @@
+{
+  "rooms": {
+    "0,0": {
+      "x": 0,
+      "y": 0,
+      "type": "spawn",
+      "sectionId": "start_game",
+      "image": "block/start_game_[b].webp",
+      "passages": {
+        "left": false,
+        "right": false,
+        "top": false,
+        "bottom": true
+      }
+    },
+    "0,1": {
+      "x": 0,
+      "y": 1,
+      "type": "normal",
+      "sectionId": "vertical_corridor",
+      "image": "block/1/block_[t_b].png",
+      "chance_spawn_mob": 0,
+      "chance_spawn_npc": 1,
+      "passages": {
+        "left": false,
+        "right": false,
+        "top": true,
+        "bottom": true
+      },
+      "spawn_npc": [
+        "one_lost"
+      ],
+      "spawn_object": [
+        "key_door1"
+      ]
+    },
+    "0,2": {
+      "x": 0,
+      "y": 2,
+      "type": "normal",
+      "sectionId": "vertical_corridor",
+      "image": "block/1/block_[t_b].png",
+      "passages": {
+        "left": false,
+        "right": false,
+        "top": true,
+        "bottom": true
+      },
+      "spawn_mob": [
+        "the_undead_stick"
+      ],
+      "chance_spawn_mob": 1
+    },
+    "0,3": {
+      "x": 0,
+      "y": 3,
+      "type": "normal",
+      "sectionId": "cross_variant",
+      "image": "block/1/block_[t_b_l_r]_2.png",
+      "passages": {
+        "left": true,
+        "right": true,
+        "top": true,
+        "bottom": true
+      },
+      "spawn_mob": [
+        "skeleton1"
+      ],
+      "chance_spawn_mob": 0.1
+    },
+    "1,3": {
+      "x": 1,
+      "y": 3,
+      "type": "normal",
+      "sectionId": "left_deadend",
+      "image": "block/1/block_[l].png",
+      "passages": {
+        "left": true,
+        "right": false,
+        "top": true,
+        "bottom": false
+      },
+      "spawn_mob": [
+        "skeleton1"
+      ],
+      "chance_spawn_mob": 0.4,
+      "spawn_object": [
+        "chest_1"
+      ]
+    },
+    "-1,3": {
+      "x": -1,
+      "y": 3,
+      "type": "normal",
+      "sectionId": "right_deadend",
+      "image": "block/1/block_[r].png",
+      "passages": {
+        "left": false,
+        "right": true,
+        "top": false,
+        "bottom": false
+      },
+      "spawn_mob": [
+        "the_undead_stick"
+      ],
+      "chance_spawn_mob": 0.5,
+      "spawn_object": [
+        "chest_1"
+      ]
+    },
+    "0,4": {
+      "x": 0,
+      "y": 4,
+      "type": "door_area",
+      "sectionId": "top_deadend_alt",
+      "image": "block/1/block_[t]_2.png",
+      "passages": {
+        "left": false,
+        "right": false,
+        "top": true,
+        "bottom": false
+      },
+      "spawn_mob": [
+        "skeleton1"
+      ],
+      "chance_spawn_mob": 1,
+      "spawn_object": [
+        "door1"
+      ]
+    },
+    "1,2": {
+      "x": 1,
+      "y": 2,
+      "type": "normal",
+      "sectionId": "altar_01",
+      "image": "block/1/block_altar_[b].png",
+      "chance_spawn_mob": 0,
+      "passages": {
+        "left": false,
+        "right": false,
+        "top": false,
+        "bottom": true
+      }
+    }
+  }
+}

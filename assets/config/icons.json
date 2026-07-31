@@ -1,0 +1,26 @@
+{
+  "attack":        "icon/attack.png",
+  "weapon":        "icon/attack.png", 
+  "shield":        "icon/shield.png",
+  "ring":          "icon/ring.png",
+  "amulet":        "icon/amulet.png", 
+  "key":           "icon/key.png",
+  "lock":          "icon/lock.png",
+  "hourglass":     "icon/hourglass.png",
+  "speech-bubble": "icon/speech-bubble.png",
+  "cart":          "icon/cart.png",
+  "trader":        "icon/d_cart.png",
+  "sell":          "icon/sell.png",
+  "error":         "icon/error.png",
+  "skull":         "icon/skull.png",
+  "target":        "icon/target.png",
+  "compass":       "icon/compass.png",
+  "forward":       "icon/forward.png",
+  "gold":          "icon/gold.png",
+  "gold-dark":     "icon/d_gold.png",
+
+  "hp":     "icon_hp.png",
+  "energy": "icon_eng.png",
+  "xp":     "icon_exp.png",
+  "save":   "icon_save.png"
+}

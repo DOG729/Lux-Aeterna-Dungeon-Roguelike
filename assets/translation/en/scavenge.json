@@ -1,0 +1,25 @@
+{
+  "altar_01": {
+    "help_text":    "Something here draws your gaze...",
+    "touch_altar":  "Touch the artifact on the altar",
+    "point_1_use":  "I feel some ancient power flowing into me...",
+    "point_1_hint": "Touch the artifact"
+  },
+  "examine_altar_01": {
+    "text": "A strange altar..."
+  },
+  "return_altar_01": {
+    "text": "Last time I was here, I felt some strange power flow into me — as if I had grown stronger... As if I had drawn closer to De Neces"
+  },
+  "start_room": {
+    "help_text":  "I need to look around",
+    "find_sword": "I need to find my sword",
+    "exit":       "I need to get out of here"
+  },
+  "pentagram_floor": {
+    "text": "A strange aura surrounds this pentagram. It pulls at you, as if promising something."
+  },
+  "exit_corridor": {
+    "condition_fail_text": "Something keeps you here. There is a feeling of unfinished business."
+  }
+}

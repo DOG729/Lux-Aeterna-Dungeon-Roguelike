@@ -1,0 +1,335 @@
+{
+    "start_game": {
+        "required_ai_system": true
+    },
+    "scavenge_system": {
+        "active": true
+    },
+    "mechanics": {
+        "battle_queue": "together",
+
+        "default_sound": "ui/soft_RPG_interface.mp3",
+        "default_sound_volume": 0.8,
+
+        "end_combat": {
+            "energy": {
+                "refresh_pct": 0.7,
+                "leftover_mult": 0.5
+            },
+            "hp": {
+                "refresh_pct": 0.08,
+                "leftover_mult": 1
+            },
+            "mana": {
+                "refresh_pct": 0,
+                "leftover_mult": 0
+            }
+        },
+
+
+        "default_sound_mob": {
+            "dead": null,
+            "damage_received": {
+                "hit": null,
+                "crit": null
+            }
+        },
+
+        "equipment": {
+            "weapon": {
+                "name": "Оружие",
+                "mode": "constant"
+            },
+            "shield": {
+                "name": "Щит",
+                "mode": "constant"
+            },
+            "amulet": {
+                "name": "Амулет",
+                "mode": "constant"
+            },
+            "ring": {
+                "name": "Кольцо",
+                "mode": "constant"
+            }
+        },
+
+        "stats": {
+            "armor": {
+                "int": 0,
+                "impact": 0.5,
+                "applies_to_ability": [{
+                    "connect":"attack",
+                    "impact": 0.5
+                },
+                {
+                    "connect":"magical_attack",
+                    "impact": 0.2
+                }]
+            },
+            "magical_armor": {
+                "int": 0,
+                "impact": 0.5,
+                "applies_to_ability": [{
+                    "connect":"magical_attack",
+                    "impact": 0.6
+                }]
+            },
+            "avoidance": {
+                "int": 0,
+                "impact": 0.5
+            },
+            "physique": {
+                "int": 0,
+                "mode": [
+                    {
+                        "type": "stats",
+                        "connect": "armor:int",
+                        "impact": 0.1
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "defend:int",
+                        "impact": 0.2
+                    }
+                ]
+            },
+            "power": {
+                "int": 0,
+                "mode": [
+                    {
+                        "type": "ability",
+                        "connect": "attack:int",
+                        "impact": 1
+                    }
+                ]
+            },
+            "agility": {
+                "int": 0,
+                "mode": [
+                    {
+                        "type": "stats",
+                        "connect": "avoidance:int",
+                        "impact": 0.2
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "attack:chance_critical",
+                        "impact": 0.2
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "attack:multiplier_critical",
+                        "impact": 0.2
+                    },
+                    {
+                        "type": "effects",
+                        "connect": "bleeding:int",
+                        "impact": 0.2
+                    }
+                ]
+            },
+            "intelligence": {
+                "int": 0,
+                "mode": [
+                    {
+                        "type": "ability",
+                        "connect": "magical_attack:chance_critical",
+                        "impact": 0.2
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "magical_attack:multiplier_critical",
+                        "impact": 0.2
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "magical_defend:int",
+                        "impact": 0.15
+                    },
+                    {
+                        "type": "ability",
+                        "connect": "magical_attack:int",
+                        "impact": 0.5
+                    }
+                ]
+            },
+            "hp": {
+                "use": true
+            },
+            "energy": {
+                "use": true
+            },
+            "mana":{
+                "use":false,
+                "int": 100
+            }
+        },
+        "ability": { 
+            "attack": {
+                "action": "attack",
+                "label": "Атака",
+                "icon": "image/abilities/attack.png",
+                "int": 20,
+                "chance_critical":0.05,
+                "multiplier_critical":0.3,
+                "energy_cost":20,
+                "default_action": true,
+                "sound_volume": 0.7,
+                "sound": {
+                    "hit":  ["ui/sword/1.mp3", "ui/sword/2.mp3", "ui/sword/3.mp3"],
+                    "crit": "ui/sword/critical/1.mp3"
+                }
+            },
+            "attack_stabbing": {
+                "action": "attack",
+                "required": [ 
+                    "skill:attack_stabbing"
+                ], 
+                "effects": [
+                    "bleeding"
+                ],
+                "int": 15,
+                "chance_critical":0.05,
+                "multiplier_critical":0.3,
+                "energy_cost":20,
+                "sound": {
+                    "hit":  ["ui/sword/2.mp3", "ui/sword/4.mp3"],
+                    "crit": "ui/sword/critical/1.mp3"
+                }
+            },
+            "magical_attack": {
+                "action": "attack",
+                "label": "Маг. атака",
+                "icon": "image/abilities/magical_attack.png",
+                "required": [
+                    "skill:mg_magical_manifestation"
+                ],
+                "int": 40,
+                "chance_critical":0.05,
+                "multiplier_critical":0.3,
+                "energy_cost":25,
+                "mana_cost":0,
+                "loop": 3,
+                "sound": {
+                    "hit":  ["ui/magic/1.mp3", "ui/magic/2.mp3"],
+                    "crit": "ui/magic/2.mp3"
+                }
+            },
+            "defend": {
+                "action": "damage_reduction",
+                "label": "Защита",
+                "icon": "image/abilities/defense.png",
+                "applies_to": [{
+                    "connect":"attack",
+                    "impact": 1
+                },
+                {
+                    "connect":"magical_attack",
+                    "impact": 0.5
+                }],
+                "int": 30,
+                "energy_cost":15,
+                "sound": {
+                    "attack":         "ui/confirm.mp3",
+                    "magical_attack": "ui/magic/1.mp3",
+                    "default":        "ui/confirm.mp3"
+                }
+            },
+            "magical_defend": {
+                "action": "damage_reduction",
+                "label": "Маг. защита",
+                "icon": "image/abilities/magical_defend.png",
+                "required": [
+                    "skill:mg_magical_manifestation"
+                ],
+                "applies_to": [{
+                    "connect":"attack",
+                    "impact": 0.5
+                },
+                {
+                    "connect":"magical_attack",
+                    "impact": 1
+                }],
+                "int": 30,
+                "energy_cost":15,
+                "mana_cost":0,
+                "loop": 2,
+                "sound": {
+                    "attack":         "ui/magic/1.mp3",
+                    "magical_attack": "ui/magic/2.mp3",
+                    "default":        "ui/magic/1.mp3"
+                }
+            },
+            "wait": {
+                "action": "add_energy",
+                "label": "Ожидание",
+                "icon": "image/abilities/expectation.png",
+                "int": 25,
+                "default_action": true,
+                "sound": "ui/soft_RPG_interface.mp3"
+            },
+            "meditation": {
+                "action": "add_mana",
+                "label": "Медитация",
+                "icon": "image/abilities/meditation.png",
+                "int": 25,
+                "energy_cost":15,
+                "loop": 2,
+                "default_action": false,
+                "sound": ["ui/magic/1.mp3", "ui/magic/2.mp3"]
+            },
+            "heal": {
+                "action": "add_hp",
+                "label": "Исцеление",
+                "icon": "image/abilities/Healing.png",
+                "int": 25,
+                "energy_cost":20,
+                "loop": 3,
+                "sound": "ui/confirm.mp3"
+            }
+        },
+        "effects": {
+            "bleeding": {
+                "icon": "image/abilities/effects/bleeding.png",
+                "action": "damage_per_turn",
+                "int": 5,
+                "loop": 3
+            },
+            "vampirism": {
+                "icon": "image/abilities/effects/vampirism.png",
+                "action": "lifesteal",
+                "int": 0.2,
+                "exception": [
+                    "ability:defend"
+                ]
+            },
+            "poison": {
+                "icon": "image/abilities/effects/poison.png",
+                "action": "damage_per_turn",
+                "int": 8,
+                "loop": 4
+            },
+            "stun": {
+                "icon": "image/abilities/effects/stun.png",
+                "action": "skip_turn",
+                "exception": [
+                    "ability:defend",
+                    "ability:magical_defend"
+                ],
+                "loop": 1
+            }
+        },
+        "function_only_player": {
+            "flee": {
+                "action": "flee",
+                "label": "Побег",
+                "icon": "image/abilities/escape.png",
+                "energy_cost": 25,
+                "chance": 0.3,
+                "condition": { "hp_ratio_below": 0.3 },
+                "once_per_combat": true
+            }
+        }
+    }
+}
