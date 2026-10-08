@@ -1,6 +1,6 @@
 {
   "name": "Lux-Aeterna-Dungeon",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Beat or Defend - turn-based AI battle game",
   "main": "app/electron/main.js",
   "scripts": {
@@ -44,6 +44,9 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["en_US", "ru_RU"],
+      "language": "1033",
+      "include": "installer.nsh",
       "installerIcon": "assets/icon.ico",
       "uninstallerIcon": "assets/icon.ico"
     },

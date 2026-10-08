@@ -290,7 +290,7 @@ export async function openSettings() {
   _initResetBtn();
   _initAiTestBtn();
 
-  buildLangButtons(langData.langs ?? [], langData.current ?? 'ru');
+  buildLangButtons(langData.langs ?? [], langData.current ?? 'en');
   setSettingsTab('lang');
 
   const provider = data.provider ?? 'ollama';

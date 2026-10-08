@@ -28,7 +28,7 @@ function loadLang(code) {
   return result;
 }
 
-let TR_ACTIVE = loadLang(cfg.lang ?? 'ru');
+let TR_ACTIVE = loadLang(cfg.lang ?? 'en');
 let TR_CORE   = loadLang(CORE_LANG);
 
 // Resolve: active → core → fallback

@@ -101,7 +101,7 @@ const CFG_DEFAULTS = {
   ollamaJsonMode: true, openrouterJsonMode: true,
   cacheMode: true,
   bgVolume: 0.25, battleVolume: 0.25, sfxVolume: 0.2,
-  lang: 'ru'
+  lang: 'en'
 };
 const cfg = { ...CFG_DEFAULTS };
 if (fs.existsSync(CFG_FILE)) {

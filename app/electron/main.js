@@ -1,6 +1,7 @@
 'use strict';
 const { app, BrowserWindow, shell, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
+const fs   = require('fs');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -15,9 +16,32 @@ function getAssetsPath() {
     : path.join(ROOT, 'assets');
 }
 
+// NSIS writes resources/install-lang ("en" | "ru") from the installer language dialog.
+// Seed save/config.json once before the server loads defaults, so first launch matches.
+function seedLanguageFromInstaller() {
+  const saveDir = path.join(app.getPath('userData'), 'save');
+  const cfgFile = path.join(saveDir, 'config.json');
+  if (fs.existsSync(cfgFile)) return;
+
+  let lang = 'en';
+  if (app.isPackaged) {
+    try {
+      const marker = path.join(process.resourcesPath, 'install-lang');
+      if (fs.existsSync(marker)) {
+        const v = fs.readFileSync(marker, 'utf8').trim().toLowerCase();
+        if (v === 'en' || v === 'ru') lang = v;
+      }
+    } catch { /* keep default */ }
+  }
+
+  fs.mkdirSync(saveDir, { recursive: true });
+  fs.writeFileSync(cfgFile, JSON.stringify({ lang }, null, 2));
+}
+
 async function startServer() {
   process.env.ELECTRON_ASSETS_PATH = getAssetsPath();
   process.env.ELECTRON_USER_DATA   = app.getPath('userData');
+  seedLanguageFromInstaller();
 
   const express = require('express');
   const srv = express(); 
