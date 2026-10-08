@@ -15,7 +15,10 @@ const E = (key, fb) => t('server', 'errors', key, fb);
 
 router.post('/api/dialogue/start', async (req, res) => {
   if (!state.session) return res.status(400).json({ error: E('no_game', 'Нет активной игры') });
-  if (state.session.combat) return res.status(400).json({ error: E('combat_active', 'Идёт бой') });
+  // Pre-fight dialogue (boss on_encounter → dialogue ends_with:'combat') runs after
+  // /api/move has already opened combat — allow it until the first turn is played.
+  if (state.session.combat && state.session.combat.turn > 0)
+    return res.status(400).json({ error: E('combat_active', 'Идёт бой') });
 
   const { dialogueId } = req.body;
   if (!dialogueId) return res.status(400).json({ error: 'dialogueId required' });

@@ -8,5 +8,21 @@
   { "level": 7,  "xpRequired": 1310, "skillPoints": 3 },
   { "level": 8,  "xpRequired": 1770, "skillPoints": 3 },
   { "level": 9,  "xpRequired": 2320, "skillPoints": 3 },  
-  { "level": 10, "xpRequired": 2970, "skillPoints": 3 } 
-] 
+  { "level": 10, "xpRequired": 2970, "skillPoints": 3 },
+  { "level": 11, "xpRequired": 3500, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 12, "xpRequired": 4100, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 13, "xpRequired": 4750, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 14, "xpRequired": 5450, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 15, "xpRequired": 6200, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 16, "xpRequired": 7000, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 17, "xpRequired": 7850, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 18, "xpRequired": 8750, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 19, "xpRequired": 9700, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 20, "xpRequired": 10700, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 21, "xpRequired": 11750, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 22, "xpRequired": 12850, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 23, "xpRequired": 14000, "skillPoints": 1, "grants": { "stats:power:int": 2 } },
+  { "level": 24, "xpRequired": 15200, "skillPoints": 1, "grants": { "player:max_hp": 20, "ability:defend:int": 3 } },
+  { "level": 25, "xpRequired": 16500, "skillPoints": 1, "grants": { "stats:power:int": 2 } }
+]
+ 

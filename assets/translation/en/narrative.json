@@ -17,5 +17,17 @@
     "npc_other": {
         "default":           "You met {npc_name}.",
         "narrative_berserk": "{npc_name} looked at you with fear."
+    },
+    "fatum_door": {
+        "approach": "Beyond the door lies a silence of a different kind. Not dead. Waiting."
+    },
+    "ending_liberation": {
+        "text": "Fatum Tuum sinks to his knees — and there is no fury in his eyes, only relief. The seal on your armour cracks; the words of the Oath burned into the metal crumble into ash. You remember the north, the pyres, the people they called heretics — and for the first time you do not look for an excuse. The contract is broken. The Labyrinth lets you go — not to the light of the order, but to where no one holds you any more."
+    },
+    "ending_merge": {
+        "text": "Fatum Tuum does not fall — he steps into you. His plate grows into yours, his voice becomes your own. You remember everyone you killed, and you no longer need an excuse: it was all necessary. It was all inevitable. Somewhere at the beginning of the Labyrinth a new wanderer in armour will wake — and at the very end a figure with your face will be waiting for him."
+    },
+    "ending_neutral": {
+        "text": "Fatum Tuum crumbles — the runes go dark, the armour turns to rust and dust. Pain, fury and memory leave with him. You sit down on the cold stone and feel yourself growing light, like ash. The Oath is not broken — there is simply no one left to keep it. This is rest. An empty, quiet rest."
     }
 }

@@ -217,5 +217,16 @@
     "ai_rating_fair_desc":       "Model is slow to respond — combat may feel sluggish.",
     "ai_rating_poor_title":      "Poor fit",
     "ai_rating_poor_desc":       "Fails some tests — combat may behave incorrectly."
-  }
+  },
+    "ending": {
+        "title": "THE END",
+        "liberation": "Liberation",
+        "merge": "Merging",
+        "neutral": "Repose",
+        "sub_liberation": "The Oath of De Necessitate is broken. The cycle is over.",
+        "sub_merge": "You have become part of the Labyrinth. Forever.",
+        "sub_neutral": "Rest — but not freedom.",
+        "btn_credits": "Credits",
+        "btn_menu": "Main menu"
+    }
 }

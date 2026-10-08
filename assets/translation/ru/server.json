@@ -47,6 +47,7 @@
   "journal": {
     "combat_encounter":  "Встретил {name} (уровень {level})",
     "next_floor":        "Переход на этаж {level}",
+    "door_exp":          "+{xp} XP за проход",
     "npc_special_defeat":"Проиграл(а) бой с {name}, но остался(ась) жив(а)"
   },
   "npc_memory": {
@@ -177,6 +178,7 @@
     "item_unavailable":     "Товар недоступен",
     "not_enough_gold":      "Недостаточно золота",
     "cannot_sell_equipped": "Нельзя продать надетый предмет",
-    "item_not_sellable":    "Предмет нельзя продать"
+    "item_not_sellable":    "Предмет нельзя продать",
+    "door_guarded":         "Путь к двери всё ещё преграждают"
   }
 }

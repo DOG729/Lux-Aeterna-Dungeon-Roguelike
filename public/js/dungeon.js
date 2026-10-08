@@ -7,6 +7,8 @@ import { sfx }           from './sfx.js';
 import { renderDungeonMap }        from './map.js';
 import { updateSkillsBadge }       from './skills.js';
 import { openScavenge } from './scavenge.js';
+import { fireEvent }    from './event.js';
+import { showEnding }   from './ending.js';
 
 // ── Dungeon render ────────────────────────────────────────────────────────────
 
@@ -173,10 +175,26 @@ export async function moveTo(direction) {
 
   if (data.combatStarted || state.G.combat) {
     renderDungeon();
+    if (data.combatStarted) await fireMobEncounter();
     window.enterCombat(); // set by combat.js
   } else {
     renderDungeon();
   }
+}
+
+// Mob/boss event hooks (manifest `events`) — fired after /api/move opened combat,
+// before the combat screen: e.g. the final boss's door → encounter dialogue.
+// Same priority as NPCs (npc.js openNpc): on_first_encounter, then on_encounter.
+async function fireMobEncounter() {
+  const events = state.G?.currentRoom?.mobEvents;
+  if (!events || state.G?.combat?.mob?.sourceNpc) return;
+  state.busy = true;
+  if (events.on_first_encounter) {
+    const r = await fireEvent(events.on_first_encounter);
+    if (!r.alreadyFired) { state.busy = false; return; }
+  }
+  if (events.on_encounter) await fireEvent(events.on_encounter);
+  state.busy = false;
 }
 
 export async function interactWith(objectId) {
@@ -193,6 +211,12 @@ export async function interactWith(objectId) {
   else if (data.interactType === 'key')   sfx.playUi('item_pickup_key');
   else if (data.interactType === 'item')  sfx.playUi('item_pickup');
   else if (data.interactType === 'door')  sfx.playUi('dungeon_stairs');
+
+  if (data.gameEnd) {
+    state.G = data;
+    showEnding(data.player?.storyFlags?.ending);
+    return;
+  }
 
   if (data.levelUp) {
     state.G = data;

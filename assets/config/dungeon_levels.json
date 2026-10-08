@@ -29,18 +29,39 @@
                 "int": 150
         }
     },
-    "6-15": {
+    "6-14": {
         "min": 10,
         "max": 18,
         "min_mob": 5
     },
-    "16": {
-        "min": 20,
-        "max": 25,
-        "min_mob": 8,
+    "15": {
+        "min": 14,
+        "max": 20,
+        "min_mob": 6,
         "boss": [
             {
                 "id": "skeleton_golem",
+                "count": 1,
+                "action": "door"
+            }
+        ],
+        "use_door": {
+            "function": "add_exp",
+            "int": 400
+        }
+    },
+    "16-29": {
+        "min": 12,
+        "max": 20,
+        "min_mob": 6
+    },
+    "30": {
+        "min": 16,
+        "max": 22,
+        "min_mob": 6,
+        "boss": [
+            {
+                "id": "fatum_tuum",
                 "count": 1,
                 "action": "door"
             }

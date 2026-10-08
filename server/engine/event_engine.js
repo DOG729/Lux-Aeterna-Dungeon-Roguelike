@@ -11,6 +11,7 @@
 const { EVENT }             = require('./data');
 const { evalAll, applySet } = require('./conditions');
 const { hasFiredEvent, markFiredEvent } = require('./account');
+const { t }                 = require('./translation');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -29,10 +30,18 @@ function _markFired(eventId, sess) {
 // Client-side action types
 const CLIENT_TYPES = new Set(['video', 'sound', 'music', 'narrator', 'dialogue']);
 
+// narrator.text_key "ns.id.field" → t(ns, id, field), fallback narrator.text
+function _translateNarrator(spec) {
+  const parts = spec?.text_key?.split('.') ?? [];
+  if (parts.length !== 3) return spec;
+  return { ...spec, text: t(parts[0], parts[1], parts[2], spec.text ?? '') };
+}
+
 function _extractClientAction(item) {
   for (const type of CLIENT_TYPES) {
     if (type in item) {
-      return { type, value: item[type] };
+      const value = type === 'narrator' ? _translateNarrator(item[type]) : item[type];
+      return { type, value };
     }
   }
   return null;

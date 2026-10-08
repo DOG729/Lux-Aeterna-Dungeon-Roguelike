@@ -177,6 +177,7 @@ function buildMobFromBase(base, level = 1) {
     imags:          base.imags          ?? null,
     effects:        base.effects        ?? null,
     style:          base.style          ?? null,
+    events:         base.events         ?? null,
     encounter_text: translateEncounterText(base.encounter_text, base.id, touched.has('encounter_text'))
   };
 }

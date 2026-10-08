@@ -6,6 +6,7 @@ import { $, showScreen, toast, icon } from './dom.js';
 import { resolveImagsSpec, resolveTextVariant } from './conditions.js';
 import { music }            from './music.js';
 import { sfx }              from './sfx.js';
+import { runDeathEvent }    from './ending.js';
 
 // ── Action labels ─────────────────────────────────────────────────────────────
 
@@ -558,7 +559,7 @@ export async function doTurn(action) {
       endMs = playDeadSprite($('cbt-player-img'), prevPlayerImags, deadStartMs);
     }
 
-    setTimeout(() => {
+    setTimeout(async () => {
       if (data.result === 'npc_special_defeat') {
         // Special non-lethal NPC outcome (roadmap/npc_combat.md §5) — run continues,
         // no gameover modal.
@@ -567,6 +568,8 @@ export async function doTurn(action) {
         showScreen('dungeon');
         window.renderDungeon();
         toast(data.npcSpecialDefeat?.text ?? '');
+      } else if (data.result === 'victory' && await runDeathEvent(prevMob)) {
+        // final boss — the run is over, ending screen is shown
       } else {
         handleCombatEnd(data.result, data.reward, prevMob);
       }
@@ -655,10 +658,12 @@ async function doMercy(choice) {
     return;
   }
 
+  const prevMob = state.G.combat?.mob ?? null;
   state.G = data;
 
-  setTimeout(() => {
-    handleCombatEnd(data.choice, data.reward);
+  setTimeout(async () => {
+    // on_death covers any defeat of the enemy — killed or spared
+    if (!await runDeathEvent(prevMob)) handleCombatEnd(data.choice, data.reward);
     state.busy = false;
     updateCombatButtons();
   }, 300);
@@ -693,6 +698,8 @@ async function _showAfterCombatNarration(mob, sectionKey = 'after_combat') {
 function handleCombatEnd(result, reward, prevMob = null) {
   document.body.classList.remove('boss-fight');
   music.exitBattle();
+  $('btn-go-credits').classList.add('hidden');   // shown only on the ending screen (ending.js)
+  $('btn-go-menu').classList.add('hidden');
 
   const _luLine = lu => {
     const sp = lu.spGained, pts = sp !== 1 ? 'points' : 'point';

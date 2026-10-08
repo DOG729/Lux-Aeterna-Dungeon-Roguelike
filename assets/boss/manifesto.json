@@ -69,7 +69,8 @@
         },
         "pawn": "skeleton_golem/pawn.png",
         "level": [
-            "5"
+            "5",
+            "15"
         ],
         "count": 1,
         "multiplier": {
@@ -209,7 +210,7 @@
         },
         "pawn": "fatum_tuum/pawn.png",
         "level": [
-            "15"
+            "30"
         ],
         "count": 1,
         "multiplier": {
@@ -219,14 +220,14 @@
             "attack": 1
         },
         "xp": 420,
-        "hp": 220,
+        "hp": 420,
         "energy": 120,
         "stats": {
             "armor": 22
         },
         "function": {
             "attack": {
-                "int": 38,
+                "int": 50,
                 "chance_critical": 0.5,
                 "multiplier_critical": 0.25,
                 "energy_cost": 28,
@@ -246,7 +247,7 @@
             }
         },
         "events": {
-            "on_encounter":    "fatum_tuum_encounter",
+            "on_encounter":    "fatum_tuum_door",
             "on_target":       "fatum_tuum_taunt",
             "on_death":        "fatum_tuum_death"
         },
@@ -274,9 +275,35 @@
                 },
                 "function": {
                     "attack": {
-                        "int": 55,
-                        "chance_critical": 0.7,
+                        "int": 62,
+                        "chance_critical": 0.6,
                         "multiplier_critical": 0.33,
+                        "energy_cost": 30,
+                        "action": true
+                    }
+                }
+            },
+            {
+                "_comment": "Только на пути Слияния (karma_bad: >10 встреч и пощажено < 20%). Условия фаз понимают только mob:/player:, поэтому karma_bad расписана вручную.",
+                "phase": 2,
+                "phase_name": "Слияние",
+                "if": [
+                    ["player:mobsEncountered", ">", 10],
+                    ["player:peacefulWins", "<", ["player:mobsEncountered", "*", 0.2]],
+                    ["mob:hp", "<", ["mob:maxHp", "*", 0.35]]
+                ],
+                "style": {
+                    "shadow_color": "#8A0000",
+                    "shadow_opacity": 0.85
+                },
+                "stats": {
+                    "armor": 40
+                },
+                "function": {
+                    "attack": {
+                        "int": 74,
+                        "chance_critical": 0.7,
+                        "multiplier_critical": 0.35,
                         "energy_cost": 30,
                         "action": true
                     }
