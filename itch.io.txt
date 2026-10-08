@@ -1,0 +1,20 @@
+Lux Aeterna — Dungeon Roguelike
+
+Descend into the Labyrinth — a place the Church never speaks of, where oath-breakers and restless souls are said to vanish forever.
+
+You play a fallen soul trapped in endless stone corridors. Fight room by room. Search forgotten chambers. Speak with those who still cling to memory — and those who have already forgotten who they were.
+
+What to expect
+
+• Turn-based battles — strike, guard, heal, flee, or surrender when hope runs out
+• Procedural dungeons — new floors, new paths, new dangers each run
+• Character growth — skills, stats, and gear that shape how you survive
+• Living enemies and strangers — creatures and people with their own voices, temperaments, and stories
+• Boss encounters that change as the fight unfolds
+• A world narrator that reacts to your victories, defeats, and conversations
+
+The order of Lux Aeterna claims to shield mankind from darkness. In the Labyrinth, that light feels very far away.
+
+Requires an AI language model connection (local or online) so characters can speak. Language support: Russian and English.
+
+Early access / prototype. Content and balance will grow over time.
