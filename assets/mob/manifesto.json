@@ -215,13 +215,15 @@
             {
                 "type": "edit",
                 "if": [["player:level", ">=", 5]],
-                "edit": {
-                    "multiplier": {
-                        "hp": 1.2,
-                        "attack": 1.09,
-                        "xp": 1.15
+                "edit": [
+                    {
+                        "multiplier": {
+                            "hp": 1.2,
+                            "attack": 1.09,
+                            "xp": 1.15
+                        }
                     }
-                }
+                ]
             }
         ]
     },
@@ -438,6 +440,346 @@
             "heal": {
                 "int": 0,
                 "action": false
+            }
+        }
+    },
+    {
+        "id": "skeleton_paladin_sworld",
+        "name": "Павший паладин (меч)",
+        "weight": 6,
+        "promt": {
+            "general": "Скелет паладина Lux Aeterna в проржавевших латах ордена и истлевшем красном плаще. В руке — иззубренный меч со сколами.",
+            "soul": "Когда-то искренне верил, что защищает людей от тьмы. Клятва Де Несес привязала его к Лабириту. Почти ничего не помнит — только устав, строй и обрывки молитв.",
+            "behavior": "Сражается выученно и дисциплинированно, как на плацу: удар, щит, снова удар. Не отступает — отступление для него хуже смерти.",
+            "communication_style": "Почти не говорит. Иногда хрипит искажённые обрывки молитв и приказов: `*Скрежет* Во и-мя... све-та...`, `Это было... не-об-хо-димо...`, `Держать... строй...`"
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} стоит посреди зала, будто на посту, которого никто не снимал. (Внешний вид {mob_name}: скелет в проржавевших латах ордена Lux Aeterna, истлевший красный плащ, иззубренный меч)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "key": "encounter_berserk",
+                    "text": "{mob_name} замирает на миг, узнав в тебе что-то своё — запах крови, который знаком каждому брату ордена. Затем поднимает оружие: «Во имя... света».",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "key": "encounter_wounded",
+                    "text": "{mob_name} видит твою кровь и поднимает меч ровно, по уставу — добить раненого тоже бывает «необходимо».",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.7,
+            "energy": 0.5
+        },
+        "script": [
+            {
+                "type": "ai_surrender",
+                "if": [],
+                "min_msg_length": 25,
+                "hint": "Бывший паладин Lux Aeterna, обманутый Клятвой Де Несес. Его можно убедить сложить оружие, если узнать в нём брата по ордену, сказать что приказ исполнен и служба окончена, что Клятва больше не держит его, или что он может отдохнуть. Не реагирует на угрозы и оскорбления."
+            }
+        ],
+        "items": [
+            {
+                "id": "gold",
+                "count": [
+                    2,
+                    4
+                ],
+                "chance": 0.9
+            },
+            {
+                "id": "elixir_healing",
+                "count": 1,
+                "chance": 0.12
+            }
+        ],
+        "style": {
+            "shadow_color": "#8A1E1E",
+            "shadow_opacity": 0.3
+        },
+        "imags": {
+            "default": "skeleton_paladin_sworld/skeleton.png",
+            "attack": "skeleton_paladin_sworld/skeleton_attack.png",
+            "dead": "skeleton_paladin_sworld/skeleton_dead.png"
+        },
+        "pawn": "skeleton_paladin_sworld/pawn.png",
+        "level": [
+            "9-30"
+        ],
+        "multiplier": {
+            "hp": 1.042,
+            "attack": 1.028,
+            "defend": 1.03,
+            "xp": 1.05
+        },
+        "xp": 40,
+        "hp": 80,
+        "energy": 90,
+        "stats": {
+            "armor": 6
+        },
+        "function": {
+            "attack": {
+                "int": 30,
+                "chance_critical": 0.12,
+                "multiplier_critical": 0.35,
+                "action": true
+            },
+            "defend": {
+                "int": 40,
+                "action": true
+            },
+            "wait": {
+                "int": 22,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    },
+    {
+        "id": "skeleton_paladin_axe",
+        "name": "Павший паладин (секира)",
+        "weight": 6,
+        "promt": {
+            "general": "Скелет паладина-карателя Lux Aeterna: тяжёлые латы ордена, красный плащ в лохмотьях, огромная секира с зазубренным лезвием.",
+            "soul": "При жизни — палач ордена, «очищал» еретиков. Верил, что каждая отрубленная голова приближает свет. Ярость пережила плоть, а вера — нет.",
+            "behavior": "Бьёт широко и яростно, почти не защищается. Каждый удар — как приговор. Чем больше крови, тем он неистовее.",
+            "communication_style": "Рычит обрывки приговоров и литаний: `Ере-тик... очи-стить...`, `Во имя Де Не-се-са!`, иногда просто хриплый смех."
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} тащит секиру по камню — скрежет слышно ещё из коридора. (Внешний вид {mob_name}: скелет в тяжёлых латах ордена, красный плащ в лохмотьях, огромная зазубренная секира)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "key": "encounter_berserk",
+                    "text": "{mob_name} замирает на миг, узнав в тебе что-то своё — запах крови, который знаком каждому брату ордена. Затем поднимает оружие: «Во имя... света».",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "key": "encounter_wounded",
+                    "text": "{mob_name} чует твою слабость и вскидывает секиру — приговор уже вынесен.",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.8,
+            "energy": 0.6
+        },
+        "script": [
+            {
+                "type": "ai_surrender",
+                "if": [],
+                "min_msg_length": 25,
+                "hint": "Бывший паладин Lux Aeterna, обманутый Клятвой Де Несес. Его можно убедить сложить оружие, если узнать в нём брата по ордену, сказать что приказ исполнен и служба окончена, что Клятва больше не держит его, или что он может отдохнуть. Не реагирует на угрозы и оскорбления."
+            }
+        ],
+        "items": [
+            {
+                "id": "gold",
+                "count": [
+                    2,
+                    5
+                ],
+                "chance": 0.9
+            },
+            {
+                "id": "elixir_energy",
+                "count": 1,
+                "chance": 0.15
+            }
+        ],
+        "style": {
+            "shadow_color": "#AA2200",
+            "shadow_opacity": 0.35
+        },
+        "imags": {
+            "default": "skeleton_paladin_axe/skeleton.png",
+            "attack": "skeleton_paladin_axe/skeleton_attack.png",
+            "dead": "skeleton_paladin_axe/skeleton_dead.png"
+        },
+        "pawn": "skeleton_paladin_axe/pawn.png",
+        "level": [
+            "9-30"
+        ],
+        "multiplier": {
+            "hp": 1.042,
+            "attack": 1.03,
+            "defend": 1.03,
+            "xp": 1.05
+        },
+        "xp": 42,
+        "hp": 68,
+        "energy": 90,
+        "stats": {
+            "armor": 4
+        },
+        "function": {
+            "attack": {
+                "int": 36,
+                "chance_critical": 0.2,
+                "multiplier_critical": 0.5,
+                "action": true
+            },
+            "defend": {
+                "int": 18,
+                "action": true
+            },
+            "wait": {
+                "int": 24,
+                "action": true
+            },
+            "heal": {
+                "int": 0,
+                "action": false
+            }
+        }
+    },
+    {
+        "id": "skeleton_paladin_morgenstern",
+        "name": "Павший паладин (моргенштерн)",
+        "weight": 6,
+        "promt": {
+            "general": "Скелет паладина-храмовника Lux Aeterna в тёмных латах, покрытых копотью, с моргенштерном на цепи. Плащ серый, истлевший.",
+            "soul": "При жизни — страж храма и капеллан отряда, читал молитвы над павшими братьями. Магия Де Несес до сих пор течёт в его костях — но это уже не свет, а что-то холодное и чужое.",
+            "behavior": "Медленный, тяжёлый, терпеливый. Принимает удары на латы и отвечает сокрушающим ударом. Ранен — шепчет молитву, и кости срастаются неестественным серым светом.",
+            "communication_style": "Монотонно бормочет искажённые молитвы, будто отпевает: `Lux... aeterna... lu-ceat e-is...`, `Необ-хо-димо... и пра-ведно...`"
+        },
+        "encounter_text": {
+            "is_ai": true,
+            "default": "{mob_name} стоит неподвижно и бормочет отходную молитву — кажется, по тебе. (Внешний вид {mob_name}: скелет в тёмных закопчённых латах ордена, серый истлевший плащ, моргенштерн на цепи)",
+            "variants": [
+                {
+                    "if": [
+                        "condition:berserk"
+                    ],
+                    "key": "encounter_berserk",
+                    "text": "{mob_name} замирает на миг, узнав в тебе что-то своё — запах крови, который знаком каждому брату ордена. Затем поднимает оружие: «Во имя... света».",
+                    "is_ai": true
+                },
+                {
+                    "if": [
+                        [
+                            "player:hp",
+                            "<",
+                            [
+                                "player:maxHp",
+                                "*",
+                                0.3
+                            ]
+                        ]
+                    ],
+                    "key": "encounter_wounded",
+                    "text": "{mob_name} прерывает молитву, глядя на твои раны: «...упокой... и этого...»",
+                    "is_ai": true
+                }
+            ]
+        },
+        "surrender_difficulty": {
+            "hp": 0.7,
+            "energy": 0.6
+        },
+        "script": [
+            {
+                "type": "ai_surrender",
+                "if": [],
+                "min_msg_length": 25,
+                "hint": "Бывший паладин Lux Aeterna, обманутый Клятвой Де Несес. Его можно убедить сложить оружие, если узнать в нём брата по ордену, сказать что приказ исполнен и служба окончена, что Клятва больше не держит его, или что он может отдохнуть. Не реагирует на угрозы и оскорбления."
+            }
+        ],
+        "items": [
+            {
+                "id": "gold",
+                "count": [
+                    3,
+                    5
+                ],
+                "chance": 0.9
+            },
+            {
+                "id": "elixir_healing",
+                "count": 1,
+                "chance": 0.2
+            }
+        ],
+        "style": {
+            "shadow_color": "#5A6470",
+            "shadow_opacity": 0.35
+        },
+        "imags": {
+            "default": "skeleton_paladin_morgenstern/skeleton.png",
+            "attack": "skeleton_paladin_morgenstern/skeleton_attack.png",
+            "dead": "skeleton_paladin_morgenstern/skeleton_dead.png"
+        },
+        "pawn": "skeleton_paladin_morgenstern/pawn.png",
+        "level": [
+            "9-30"
+        ],
+        "multiplier": {
+            "hp": 1.042,
+            "attack": 1.028,
+            "defend": 1.03,
+            "heal": 1.04,
+            "xp": 1.05
+        },
+        "xp": 46,
+        "hp": 100,
+        "energy": 100,
+        "stats": {
+            "armor": 14
+        },
+        "function": {
+            "attack": {
+                "int": 26,
+                "chance_critical": 0.1,
+                "multiplier_critical": 0.6,
+                "action": true
+            },
+            "defend": {
+                "int": 55,
+                "action": true
+            },
+            "wait": {
+                "int": 20,
+                "action": true
+            },
+            "heal": {
+                "int": 14,
+                "action": true
             }
         }
     }

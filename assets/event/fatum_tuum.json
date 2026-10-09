@@ -41,10 +41,35 @@
         ]
       },
       {
+        "_comment": "Флаг концовки + её текст. Клиент после события видит storyFlag:ending и показывает финальный экран.",
         "select": [
-          { "if": ["storyFlag:fate_accepted", "condition:karma_good", "!condition:used_magic"], "set": { "storyFlag:ending": "liberation" } },
-          { "if": ["condition:karma_bad"],                                                       "set": { "storyFlag:ending": "merge" } },
-          { "if": [],                                                                             "set": { "storyFlag:ending": "neutral" } }
+          {
+            "if": ["storyFlag:fate_accepted", "condition:karma_good", "!condition:used_magic"],
+            "set": { "storyFlag:ending": "liberation" },
+            "narrator": {
+              "text": "Фатум Туум опускается на колени — и в его глазах нет ярости, только облегчение. Печать на твоих доспехах трескается, слова Клятвы, выжженные в металле, осыпаются пеплом. Ты вспоминаешь север, костры, людей, которых называли еретиками, — и впервые не ищешь оправдания. Договор расторгнут. Лабирит отпускает тебя — не к свету ордена, а туда, где тебя больше никто не держит.",
+              "text_key": "narrative.ending_liberation.text",
+              "skippable": true
+            }
+          },
+          {
+            "if": ["condition:karma_bad"],
+            "set": { "storyFlag:ending": "merge" },
+            "narrator": {
+              "text": "Фатум Туум не падает — он шагает в тебя. Его латы срастаются с твоими, его голос становится твоим. Ты помнишь каждого, кого убил, и оправдание больше не нужно: всё было необходимо. Всё было неизбежно. Где-то в начале Лабирита очнётся новый странник в доспехах — и в самом конце его будет ждать фигура с твоим лицом.",
+              "text_key": "narrative.ending_merge.text",
+              "skippable": true
+            }
+          },
+          {
+            "if": [],
+            "set": { "storyFlag:ending": "neutral" },
+            "narrator": {
+              "text": "Фатум Туум рассыпается — руны гаснут, доспехи становятся ржавчиной и пылью. Вместе с ним уходят боль, ярость и память. Ты садишься на холодный камень и чувствуешь, как сам становишься лёгким, будто пепел. Клятва не разорвана — просто больше некому её исполнять. Это покой. Пустой, тихий покой.",
+              "text_key": "narrative.ending_neutral.text",
+              "skippable": true
+            }
+          }
         ]
       }
     ]
@@ -66,7 +91,8 @@
 
   "fatum_tuum_door": {
     "_comment": [
-      "Игрок взаимодействует с дверью в зал финального босса. Хук двери: on_interact.",
+      "Вход в зал финального босса. Хук: on_encounter Фатум Туума (босс стоит в комнате двери 30-го этажа,",
+      "dungeon_levels.json → boss.action: door), т.е. срабатывает при входе в эту комнату, до начала боя.",
       "Цепочка: дверь открывается → атмосфера → переход в encounter."
     ],
     "once": true,
@@ -76,7 +102,7 @@
       {
         "narrator": {
           "text": "За дверью — тишина другого качества. Не мёртвая. Ожидающая.",
-          "text_key": "narrator.fatum_door.approach",
+          "text_key": "narrative.fatum_door.approach",
           "skippable": true
         }
       },

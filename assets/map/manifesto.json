@@ -37,7 +37,7 @@
         },
         {
             "id":"start",
-            "level":[2,"4-6"],
+            "level":[2,"4-6","10-30"],
             "action":"spawn",
             "chance_spawn_mob":0,
             "image":"block/1/start_block_[t_b_r].png",
@@ -50,7 +50,7 @@
         },
         {
             "id":"start_2",
-            "level":["3-4","7-9"],
+            "level":["3-4","7-30"],
             "action":"spawn",
             "chance_spawn_mob":0,
             "image":"block/1/start_block_[t_b_r]_2.png",  
@@ -63,7 +63,7 @@
         },
         {
             "id":"left_deadend",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation",
             "chance_spawn_mob":0.4,
             "image":"block/1/block_[l].png",
@@ -84,7 +84,7 @@
         },
         {
             "id":"right_deadend",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation", 
             "chance_spawn_mob":0.7,
             "image":"block/1/block_[r].png",
@@ -101,7 +101,7 @@
         },
         {
             "id":"bottom_deadend",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation", 
             "chance_spawn_mob":0.7,
             "image":"block/1/block_[b].png",
@@ -118,7 +118,7 @@
         },
         {
             "id":"cross",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation",
             "chance_spawn_mob":0.2,
             "image":"block/1/block_[t_b_l_r].png",
@@ -162,7 +162,7 @@
         },
         {
             "id":"vertical_corridor",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation",
             "chance_spawn_mob":0.4,
             "image":"block/1/block_[t_b].png",
@@ -180,7 +180,7 @@
         },
         {
             "id":"vertical_corridor_gold",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation",
             "chance_spawn_mob":0.8,
             "image":"block/1/block_[t_b]_2.png",
@@ -198,7 +198,7 @@
         },
         {
             "id":"cross_variant",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation",
             "chance_spawn_mob":0.2,
             "image":"block/1/block_[t_b_l_r]_2.png",
@@ -215,7 +215,7 @@
         },
         {
             "id":"top_deadend",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation", 
             "chance_spawn_mob":0.3,
             "image":"block/1/block_[t].png",
@@ -232,7 +232,7 @@
         },
         {
             "id":"top_deadend_alt",
-            "level":["3-15"],
+            "level":["3-30"],
             "action":"generation", 
             "chance_spawn_mob":0.3,
             "image":"block/1/block_[t]_2.png",
@@ -249,7 +249,7 @@
         },
         {
             "id":"corner_right_bottom",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation", 
             "chance_spawn_mob":0.3,
             "image":"block/1/block_[r_b].png",
@@ -265,7 +265,7 @@
         },
         {
             "id":"corner_left_bottom",
-            "level":["1-15"],
+            "level":["1-30"],
             "action":"generation", 
             "chance_spawn_mob":0.5,
             "image":"block/1/block_[l_b].png",

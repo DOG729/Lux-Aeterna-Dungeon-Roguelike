@@ -47,6 +47,7 @@
   "journal": {
     "combat_encounter":  "Encountered {name} (floor {level})",
     "next_floor":        "Descended to floor {level}",
+    "door_exp":          "+{xp} XP for the passage",
     "npc_special_defeat":"Lost the fight against {name}, but survived"
   },
   "npc_memory": {
@@ -177,6 +178,7 @@
     "item_unavailable":     "Item unavailable",
     "not_enough_gold":      "Not enough gold",
     "cannot_sell_equipped": "Cannot sell equipped item",
-    "item_not_sellable":    "Item cannot be sold"
+    "item_not_sellable":    "Item cannot be sold",
+    "door_guarded":         "Someone still blocks the way to the door"
   }
 }

@@ -21,7 +21,7 @@ import { run as runPreloader }              from './preloader.js';
 import { preloadMedia }                     from './event.js';
 import { applyConditions }                  from './conditions.js';
 import { closeScavenge }                   from './scavenge.js';
-import { initCreditsBtn }                  from './credits.js';
+import { initCreditsBtn, openCredits }     from './credits.js';
 import { ensureAiReady }                   from './ai_check.js';
 import { playDefeatExitAnimation }         from './gameover.js';
 import { initDevPanel }                    from './devpanel.js';
@@ -184,6 +184,17 @@ $('btn-go-new').addEventListener('click', async () => {
   state.G = data;
   showScreen('dungeon');
   renderDungeon();
+});
+
+// ── Ending screen (ending.js) — the run is over ───────────────────────────────
+
+$('btn-go-credits').addEventListener('click', () => openCredits());
+$('btn-go-menu').addEventListener('click', async () => {
+  $('modal-gameover').classList.add('hidden');
+  await api('POST', '/api/quit');
+  state.G = null;
+  $('btn-continue').classList.add('hidden');
+  showScreen('menu');
 });
 
 // ── Level up modal ────────────────────────────────────────────────────────────

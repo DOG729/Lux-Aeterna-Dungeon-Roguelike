@@ -253,6 +253,7 @@ function buildBossFromBase(base, level = 1) {
     pawn:            base.pawn   ?? null,
     effects:         null,
     style:           base.style  ?? null,
+    events:          base.events ?? null,
     encounter_text:  translateBossEncounterText(base.encounter_text, base.id, touched.has('encounter_text')),
     isBoss:          true,
     source:          'boss',

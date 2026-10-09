@@ -6,5 +6,21 @@
         "encounter_weak_opponent": "{mob_name} notices your weakness — the runes on its skull flare bright. It raises a heavy arm, intent on finishing off the wounded.",
         "phase_1_name": "Rage",
         "phase_1_text": "The runes on {mob_name}'s bones ignite with crimson fire — necromantic RAGE takes hold! It grows stronger!"
+    },
+    "fatum_tuum": {
+        "name": "Fatum Tuum",
+        "promt": {
+            "general": "A titanic figure towers before you — in broken armour, with a disfigured face and an extinguished gaze, wrapped in a flickering collection of faded runes — like a reflection of the hero you could have been.",
+            "soul": "This is the twisted soul of the hero himself, sealed by the rituals of the Labyrinth. Pain, hostility and fragments of memory of why you are here — all mixed and distorted by someone else's malice. Shadows of the past, the echo of a cursed oath and a foreign will have set you against yourself.",
+            "behavior": "Fatum Tuum moves with frightening purpose — as if carrying out someone else's will, but sometimes his movements slow, as though he is fighting invisible chains. Sometimes a flash of recognition flickers in the empty sockets — and vanishes at once under a surge of black fury.",
+            "communication_style": "Speaks harshly, in fragments — scraps of phrases and prayers, familiar but distorted. Sometimes the voice suddenly sounds human — but then turns into a growl or is drowned by an echo: `*hollow echo*: 'Can't... go back... Promised... By faith and...'`"
+        },
+        "encounter_default": "{mob_name} materialises out of the swirling gloom, like a waking nightmare. The dead runes beneath his skin flare with a pale light, the chains of the oath tighten, and you suddenly feel that this enemy is a reflection of yourself. (Appearance: broken armour, empty eye sockets, in his hand a shard of a blade covered in old prayers.)",
+        "encounter_berserk_rage": "{mob_name} is seized by a monstrous fury, his voice explodes into the echo of several voices at once, and yours would be among them: \"All... for the light! All... is necessary!\". His blows become frenzied.",
+        "encounter_weak_opponent": "{mob_name} stops for a moment, as if recognising something familiar in you. Then he slowly raises the blade, and for an instant his voice sounds like your own: \"...forgive me...\" — and the blow comes down on you.",
+        "phase_1_name": "Seal of the Rift",
+        "phase_1_text": "The runes on {mob_name}'s armour burst one after another — the seal of the Oath cracks, and cold grey light seeps through the rifts.",
+        "phase_2_name": "Merging",
+        "phase_2_text": "{mob_name} no longer reflects you — he reaches for you. His borrowed fury and yours become one voice: \"We are... one... weapon...\""
     }
 }

@@ -75,7 +75,7 @@
   }
 }
 ```
-`text_key` — ключ в файле переводов. Если не найден — используется `text`.
+`text_key` — ключ перевода `"ns.id.field"` (например `"narrative.fatum_door.approach"` → `assets/translation/{lang}/narrative.json → fatum_door.approach`), резолвится на сервере (`event_engine.js`). Если не найден — используется `text`.
 
 ---
 
@@ -186,6 +186,13 @@
 | `on_room_enter` | Игрок вошёл в комнату/зону |
 | `on_room_first_enter` | Только при первом входе |
 | `on_item_pickup` | Подбор предмета |
+
+**Что реально подключено:**
+- NPC — `on_first_encounter` / `on_encounter` (`public/js/npc.js → openNpc`).
+- Мобы и боссы — `on_first_encounter` / `on_encounter` при входе в комнату, **до** экрана боя (`public/js/dungeon.js → fireMobEncounter`). Бой к этому моменту уже открыт сервером (`/api/move`), поэтому `/api/dialogue/start` разрешён, пока `combat.turn === 0` — диалог с `ends_with: "combat"` просто передаёт управление экрану боя.
+- Мобы и боссы — `on_death` после победы, добивания или пощады (`public/js/ending.js → runDeathEvent`). Если после события выставлен `storyFlag:ending` — показывается финальный экран вместо обычного «ПОБЕДА!».
+- Хуки берутся из манифеста моба/босса (`events`) — в рантайме лежат в `mob.events`, на клиент уходят как `currentRoom.mobEvents` и `combat.mob.events`. Для NPC-боёв (`sourceNpc`) хуки шаблона не вызываются.
+- `on_target`, `on_phase_change`, `on_dialogue_end`, `on_interact`, `on_room_enter`, `on_room_first_enter`, `on_item_pickup` — пока только зарезервированы.
 
 ---
 

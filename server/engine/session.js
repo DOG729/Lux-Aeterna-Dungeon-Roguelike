@@ -475,6 +475,7 @@ function pubSession(sess) {
         encounter_text: mob.encounter_text ?? null,
         isBoss:          mob.isBoss ?? false,
         style:           mob.style  ?? null,
+        events:          mob.events ?? null,   // on_death is fired by the client after the fight
         sourceNpc:       mob.sourceNpc ?? null,
         // Lean phase list (name only) + which phases are currently active.
         // Full phase conditions/overrides stay server-side.

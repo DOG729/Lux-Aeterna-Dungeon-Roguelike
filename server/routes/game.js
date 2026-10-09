@@ -2,7 +2,7 @@
 const fs     = require('fs');
 const router = require('express').Router();
 const { SESSION_FILE, NPCS }                                    = require('../engine/data');
-const { DELTA }                                                 = require('../engine/helpers');
+const { DELTA, getDungeonLevelCfg }                             = require('../engine/helpers');
 const { t }                                                     = require('../engine/translation');
 const { addToInventory, removeFromInventory, itemDef } = require('../engine/items');
 const { recalcStats }                                  = require('../engine/player');
@@ -156,7 +156,24 @@ router.post('/api/interact', (req, res) => {
   } else if (obj.action === 'door') {
     if (!state.session.dungeon.hasKey)
       return res.status(400).json({ error: E('need_key', '🔒 Нужен ключ от двери!') });
+    // A door boss the player fled from still stands in this room
+    if (room.mob)
+      return res.status(400).json({ error: E('door_guarded', 'Путь к двери всё ещё преграждают') });
+
+    // dungeon_levels.json → use_door: { function: 'end_game' } | { function: 'add_exp', int }
+    const useDoor = getDungeonLevelCfg(state.session.dungeon.level).use_door ?? null;
+    if (useDoor?.function === 'end_game') {
+      saveSessionAuto();
+      return res.json({ gameEnd: true, interactType: 'door', ...pubSession(state.session) });
+    }
+
     removeFromInventory(state.session.player, 'key_door_inventory', 1);
+    if (useDoor?.function === 'add_exp' && useDoor.int > 0) {
+      // Level-up itself is picked up by checkLevelUp after the next fight
+      state.session.player.xp = (state.session.player.xp ?? 0) + useDoor.int;
+      addJournal(state.session, 'event',
+        t('server', 'journal', 'door_exp', '+{xp} XP за проход').replace('{xp}', useDoor.int));
+    }
     const nextLevel   = state.session.dungeon.level + 1;
     const prevJournal = state.session.journal ?? [];
     const old = { ...state.session.player };
